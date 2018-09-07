@@ -96,12 +96,13 @@ function SetTextColor(colorStr)
 end
 
 --- Returns the message day and time head part.
---- "[XX, XX:XX]"
--- @returns Color free string with this format: "[XX, XX:XX]".
+--- "[XX:XX|XX]"
+-- @returns Color free string with this format: "[XX:XX|XX]".
 function getHeadDayTime()
-  return Utils.padRight(os.day() .. " " -- Minecraft world day.
-  .. textutils.formatTime(os.time(), true)  -- Current time in 24H
-  .. " | ", 8 + #tostring(os.day()))
+  return Utils.padRight(
+          textutils.formatTime(os.time(), true)  -- Current time in 24H
+          .. "|" .. os.day()                     -- Minecraft world day.
+          .. "|", 6 + #tostring(os.day()))
 end
 
 --TODO: Rewrite this with function "cleanDurtyString(coloredString)".. [CleanerCode]
@@ -115,7 +116,7 @@ function getMessageHeadLength(msgType)
 
   -- Write message type with correct spacing for table like look and return length of it.
   local messageHeadLength = #getHeadDayTime()
-  local typeTextSpacing = Utils.padRight("", longestTypeTextLength - #msgType) .. " | "
+  local typeTextSpacing = Utils.padRight("", longestTypeTextLength - #msgType) .. "|"
   return messageHeadLength + #msgType + #typeTextSpacing
 end
 
