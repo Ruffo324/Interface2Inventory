@@ -91,9 +91,9 @@ local function ServerStartup()
 
     -- Clear console and write startup things.
     Console.ClearScreen()
-    Console.PrintLine("=")
+    Console.PrintLine("-")
     printConstInfo()
-    Console.PrintLine("=")
+    Console.PrintLine("-")
   
     -- Parse interfaces.
     Console.WriteLine(Console.Type.Init, "Parsing given interface.")
@@ -113,7 +113,7 @@ local function ServerStartup()
   
     -- Startup done.
     Console.WriteLine(Console.Type.Info, "Startup done.")
-    Console.PrintLine("=")
+    Console.PrintLine("-")
 end
 
 --- Entry point of the program.

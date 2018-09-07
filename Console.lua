@@ -22,7 +22,7 @@ Type = {
   Error = "Error",
   Init = "Init",
   Debug = "Debug",
-  Line = "=====",
+  Line = "-----",
   Config = "Config",
   Hint = "Hint"
 }
@@ -39,6 +39,8 @@ ColorType = {
 }
 
 local longestTypeTextLength = 0
+local consoleWidth = 0 -- Automatic setting in Init()
+local consoleHeight = 0 -- Automatic setting in Init()
 
 --- Initalize the console api.
 --- Gets then length of the longest type text.
@@ -48,6 +50,10 @@ function Init()
       longestTypeTextLength = #value
     end
   end
+
+  -- TODO: Check if the console height&width is constant after startup.
+  -- Remember console size.
+  consoleWidth, consoleHeight = term.getSize()
 end
 
 --- Checks if the given message type is a existing Type.
@@ -67,6 +73,9 @@ end
 -- @returns {string} Matching color for the given type.
 -- @error Throws error if there is no matching ColorType for the given Type.
 function GetColorForType(msgType)
+  -- Check msgType.
+  IsValidType(msgType)
+
   for key1, value1 in pairs(Type) do
     if (value1 == msgType) then
       for key2, value2 in pairs(ColorType) do
@@ -102,6 +111,9 @@ end
 --- Without color codes.
 -- @returns The length of the full message head without colors.
 function getMessageHeadLength(msgType)
+  -- Check msgType.
+  IsValidType(msgType)
+
   local messageHeadLength = #getHeadDayTime()
   -- Write message type with correct color code and correct spacing for table like look.
   local typeText = "[" .. msgType .. "]"
@@ -137,19 +149,16 @@ function WriteLine(msgType, message)
 end
 
 --- Prints a line with length perfect length to cut the console. 
--- @param[opt="="] printChr Char for the printed line.
+-- @param[opt="-"] printChr Char for the printed line.
 function PrintLine(printChr)
   printChr = printChr or "-"
   -- printChr is more than one char -> error.
   if(#printChr ~= 1) then
-    error("[FATAL ERROR][CONSOLE]The parameter \" printChr\" must be a string with a length of exactly one.")
+    error("[FATAL ERROR][CONSOLE]The parameter \"printChr\" must be a string with a length of exactly one.")
   end
 
-  local w, h = term.getSize()loca
 
-  
-
-  WriteLine(Type.Line, Utils.padRight("", , printChr))
+  WriteLine(Type.Line, Utils.padRight("", consoleWidth - getMessageHeadLength(Type.Line), printChr))
 end
 
 --- Workaround for os.execute("clear")
