@@ -158,8 +158,8 @@ function WriteLine(msgType, message, monitor)
     SetTextColor(colors.white, monitor)
   end
 
-  -- Write message with print to add linefeed at the end.
-  monitor.print(message)
+  -- Write message with linefeed at the end.
+  monitor.write(message .. "\n")
 end
 
 --- Prints a line with length perfect length to cut the console. 
