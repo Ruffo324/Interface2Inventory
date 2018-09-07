@@ -16,7 +16,6 @@ local args = {...}
 if (#args < 1) then
   print("Current available peripherals:")
   local peripherals = peripheral.getNames()
-  peripheral.
   for i = 1, #peripherals do
     print("Type: \"" .. peripheral.getType(peripherals[i]) .. "\" attached as \"".. peripherals[i] .. "\".")
   end

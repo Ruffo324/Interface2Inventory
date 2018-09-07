@@ -15,11 +15,27 @@ cd I2I
 ../openp/github get Ruffo324/Interface2Inventory/master/itemExporter.lua itemExporter
 ```
 
+# Update
+```shell
+cd /I2I 
+
+delete Console.lua
+delete Utils.lua
+delete makelist
+delete itemExporter
+
+../openp/github get Ruffo324/Interface2Inventory/master/Console.lua Console.lua
+../openp/github get Ruffo324/Interface2Inventory/master/Utils.lua Utils.lua
+../openp/github get Ruffo324/Interface2Inventory/master/makelist.lua makelist
+../openp/github get Ruffo324/Interface2Inventory/master/itemExporter.lua itemExporter
+```
+
 
 # How to use
 ### Script "makelist"
 To quickly and easily create a configuration file for I2I, there is the **"makelist"** command.
 ```shell
+
 makelist [side]
 ```
 
