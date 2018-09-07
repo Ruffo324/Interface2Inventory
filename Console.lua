@@ -99,9 +99,9 @@ end
 --- "[XX, XX:XX]"
 -- @returns Color free string with this format: "[XX, XX:XX]".
 function getHeadDayTime()
-  return Utils.padRight(os.day() .. "-" -- Minecraft world day.
+  return Utils.padRight(os.day() .. " " -- Minecraft world day.
   .. textutils.formatTime(os.time(), true)  -- Current time in 24H
-  .. " | ", 9 + #tostring(os.day()))
+  .. " | ", 8 + #tostring(os.day()))
 end
 
 --TODO: Rewrite this with function "cleanDurtyString(coloredString)".. [CleanerCode]
@@ -116,7 +116,7 @@ function getMessageHeadLength(msgType)
   -- Write message type with correct spacing for table like look and return length of it.
   local messageHeadLength = #getHeadDayTime()
   local typeTextSpacing = Utils.padRight("", longestTypeTextLength - #msgType) .. " | "
-  return messageHeadLength + #typeText + #typeTextSpacing
+  return messageHeadLength + #msgType + #typeTextSpacing
 end
 
 --- Writes a new line to the console output. Formated with the Type and time.
@@ -137,7 +137,7 @@ function WriteLine(msgType, message)
   write(msgType)
   SetTextColor(colors.lightGray)
   write(typeTextSpacing)
-  write(" | ")
+  write("|")
  
   -- Message is line -> gray message color.
   if(msgType == Type.Line) then
