@@ -6,5 +6,10 @@
 function padRight(str, length, chr)
   chr = chr or " "
   str = "" .. str
-  return str .. string.rep(chr, length - #str)
+
+  if(length >= #str) then
+    str = str .. string.rep(chr, length - #str)
+  end
+  
+  return str
 end
