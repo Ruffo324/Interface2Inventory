@@ -180,7 +180,9 @@ end
 --@param[opt=term] monitor Monitor wich should be cleaned.
 function ClearScreen(monitor)
   monitor = monitor or term
-  monitor.clear()
+  for i = 1, 255 do
+    monitor.print()
+  end
 end
 
 
