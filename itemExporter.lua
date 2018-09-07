@@ -1,37 +1,11 @@
---================================================================================================--
---
---  Applied Energistics Item Exporter
---  Version 0.2a
---
---  Original Author : Zacherl
---  Modifications   : Miscellaniuz
---
---================================================================================================--
---
--- This program was designed to work with the mods and versions in the "FTB Infinity 1.10.1" pack.
--- It was edited to work with the ToTheCore Official Modpack.
---	
--- Features:
---  * Periodically exports items from an Applied Energistics ME Interface to an adjacent inventory
---  * Ability to preserve a certain amount of items in the system.
---
--- Table format (items.cfg):
--- {
---   {
---     fingerprint = {
---       id = "minecraft:gold_ore",
---       dmg = 0,
---       nbt_hash = "3288456351062a1d4b01b5774241a664"
---     },
---     name = "Gold Ore",
---     preserve = 1000,
---   },
--- }
---
--- The "dmg" and "nbt_hash" fields are optional. Just remove them to ignore damage values and
--- NBT data for the specified item.
---
---================================================================================================--
+-- Resolve relative path for "Console.lua".
+local ConsoleLibaryPath = shell.resolve("Console.lua")
+-- "Console.lua" not found -> error.
+if (not fs.exists(ConsoleLibaryPath)) then
+  error("[FATAL ERROR] Can't find libary \"" .. ConsoleLibaryPath .. "\".")
+-- "Console.lua" not loadable -> error.
+if(not os.loadAPI(ConsoleLibaryPath))
+  error("[FATAL ERROR] Can't load libary \"" .. ConsoleLibaryPath .. "\".")
 
 -- The name or side of the ME Interface.
 local interfaceSide  = "back"
@@ -98,32 +72,36 @@ local function mainTick()
   end
 end
 
-local function printLine()
-{
-  local lineStr = "==================================================="
-  print(lineStr)
-}
-
 -- Prints informations about the programm settings.
 local function printConstInfo()
-{
-  print("[SETTINGS]")  
-}
+  Console.WriteLine(Console.Type.Config, "Interface side:   ".. interfaceSide)
+  Console.WriteLine(Console.Type.Config, "Export direction: ".. exportDirection)
+  Console.WriteLine(Console.Type.Config, "Tick interval:    ".. tickInterval)
+end
 
 local function main()
-  printLine()
+  -- Write startup things.
+  Console.PrintLine("=")
   printConstInfo()
-  printLine() -- line
-  print("[INIT] Wrapping interface.") -- Init
+  Console.PrintLine("=")
+
+  -- Parse interfaces.
+  Console.WriteLine(Console.Type.Init, "Parsing given interface.")
   interface = peripheral.wrap(interfaceSide)
-  print("[INIT] Reading \"items.cfg\".")
-  if (fs.exists("items.cfg")) then
-    local f = fs.open("items.cfg", "r")
-    exports = textutils.unserialise(f.readAll())
-    f.close()
-  else
+
+  -- Read "items.cfg"
+  -- Todo: Name of the file adjustable.
+  Console.WriteLine(Console.Type.Init, "Reading \"items.cfg\".")
+  local itemsCfgPath = shell.resolve("items.cfg")
+  -- File "items.cfg" does not exist -> error.
+  if (not fs.exists(itemsCfgPath)) then
     error("There is no \"items.cfg\" file.")
   end
+  -- Load and serialize items.cfg.
+  local f = fs.open(itemsCfgPath, "r")
+  exports = textutils.unserialise(f.readAll())
+  f.close()
+  
   print("[INIT] Programm startup done.")
   printLine() -- line
   while (true) do
