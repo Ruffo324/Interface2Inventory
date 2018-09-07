@@ -14,7 +14,7 @@ end
 local interfaceSide             = "back" -- The name or side of the ME Interface.
 local exportDirection           = "right" -- The export direction (target inventory) relative to the ME Interface.
 local tickInterval              = 5 -- The export program tick interval. Recommended range is between 5 and 60 seconds.
-local itemsConfigurationFile    = "items.cfg" -- The file where the item-rules are setten. 
+local itemsConfigurationFile    = "./items.cfg" -- The file where the item-rules are setten. 
 
 -- Internal variables
 local interface = peripheral.wrap(interfaceSide)
@@ -82,7 +82,7 @@ function getOrCreateSettingsFile()
     Console.WriteLine(Console.Type.Warn, "There is not \"./I2Iconfig\" file.")
     Console.WriteLine(Console.Type.Hint, "Creating new \"./I2Iconfig\"")
     Console.WriteLine(Console.Type.Hint, "with default settings..")
-    
+
     local file = io.open(settingsFilePath, "w")
     file:write("interfaceSide = \"" .. interfaceSide .."\"\n")
     file:write("exportDirection = \"" .. exportDirection .."\"\n")
@@ -91,7 +91,6 @@ function getOrCreateSettingsFile()
     file:close()
     Console.WriteLine(Console.Type.Hint, "done.")
   end    
-  settings.Clear()
 
   -- Load settings file
   Console.WriteLine(Console.Type.Init, "Loading settings from \"./I2Iconfig\".")
