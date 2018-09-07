@@ -80,8 +80,9 @@ function getOrCreateSettingsFile()
   -- There is no settings file? -> create one.
   if (not fs.exists(settingsFilePath)) then
     Console.WriteLine(Console.Type.Warn, "There is not \"./I2Iconfig\" file.")
-    Console.WriteLine(Console.Type.Hint, "Creating new \"./I2Iconfig\" with default settings..")
-
+    Console.WriteLine(Console.Type.Hint, "Creating new \"./I2Iconfig\"")
+    Console.WriteLine(Console.Type.Hint, "with default settings..")
+    
     local file = io.open(settingsFilePath, "w")
     file:write("interfaceSide = \"" .. interfaceSide .."\"\n")
     file:write("exportDirection = \"" .. exportDirection .."\"\n")
