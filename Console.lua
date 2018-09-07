@@ -38,6 +38,18 @@ ColorType = {
   Hint = colors.blue
 }
 
+local longestTypeTextLength = 0
+
+--- Initalize the console api.
+--- Gets then length of the longest type text.
+function Init()
+  for key, value in pairs(Type) do
+    if (#value > longestTypeTextLength) then
+      longestTypeTextLength = #value
+    end
+  end
+end
+
 --- Checks if the given message type is a existing Type.
 -- @error Throws error if message type is not a valid Type.
 function IsValidType(msgType)
@@ -91,7 +103,7 @@ function WriteLine(msgType, message)
 
   -- Write message type with correct color code and correct spacing for table like look.
   local typeText = "[" .. msgType .. "]"
-  local typeTextSpacing = Utils.padRight("", 12 - #typeText)
+  local typeTextSpacing = Utils.padRight("", longestTypeTextLength - #msgType)
   write("[")
   SetTextColor(GetColorForType(msgType))
   write(msgType)
@@ -122,3 +134,8 @@ function ClearScreen()
     print()
   end
 end
+
+
+
+-- Call of init function
+Init()
