@@ -10,11 +10,12 @@ if(not os.loadAPI(ConsoleLibaryPath)) then
   error("[FATAL ERROR] Can't load libary \"" .. ConsoleLibaryPath .. "\".")
 end
 
--- Configuration variables.
-local interfaceSide             = "back" -- The name or side of the ME Interface.
-local exportDirection           = "right" -- The export direction (target inventory) relative to the ME Interface.
-local tickInterval              = 5 -- The export program tick interval. Recommended range is between 5 and 60 seconds.
-local itemsConfigurationFile    = "./items.cfg" -- The file where the item-rules are setten. 
+-- Configuration variables, overwritten by "./I2Iconfig".
+-- This are the default values for new config files.
+local interfaceSide             = "back" 
+local exportDirection           = "east" 
+local tickInterval              = 5 
+local itemsConfigurationFile    = "./items.cfg" 
 
 -- Internal variables
 local interface = peripheral.wrap(interfaceSide)
@@ -84,10 +85,10 @@ function getOrCreateSettingsFile()
     Console.WriteLine(Console.Type.Hint, "with default settings..")
 
     local file = io.open(settingsFilePath, "w")
-    file:write("interfaceSide = \"" .. interfaceSide .."\"\n")
-    file:write("exportDirection = \"" .. exportDirection .."\"\n")
-    file:write("tickInterval = " .. tickInterval .."\n")
-    file:write("itemsConfigurationFile = \"" .. itemsConfigurationFile .."\"\n")
+    file:write("interfaceSide = \"" .. interfaceSide .."\" -- The name or side of the ME Interface.\n")
+    file:write("exportDirection = \"" .. exportDirection .."\" -- The export direction (target inventory) relative to the ME Interface.\n")
+    file:write("tickInterval = " .. tickInterval .." -- The export program tick interval. Recommended range is between 5 and 60 seconds.\n")
+    file:write("itemsConfigurationFile = \"" .. itemsConfigurationFile .."\" -- The file where the item-rules are setten. \n")
     file:close()
     Console.WriteLine(Console.Type.Hint, "done.")
   end    
