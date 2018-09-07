@@ -22,7 +22,7 @@ Type = {
   Error = "Error",
   Init = "Init",
   Debug = "Debug",
-  Line = "-----",
+  Line = "------",
   Config = "Config",
   Hint = "Hint"
 }
@@ -31,7 +31,7 @@ ColorType = {
   Info = colors.green,
   Warn = colors.yellow,
   Error = colors.red,
-  Init = colors.lightGray,
+  Init = colors.orange,
   Debug = colors.cyan,
   Line = colors.gray,
   Config = colors.lime,
@@ -100,7 +100,7 @@ end
 -- @returns Color free string with this format: "[XX, XX:XX]".
 function getHeadDayTime()
   return Utils.padRight("[" 
-  .. os.day() .. ", " -- Minecraft world day.
+  .. os.day() .. "|" -- Minecraft world day.
   .. textutils.formatTime(os.time(), true)  -- Current time in 24H
   .. "]", 9 + #tostring(os.day()))
 end
@@ -136,15 +136,21 @@ function WriteLine(msgType, message)
   -- Write message type with correct color code and correct spacing for table like look.
   local typeText = "[" .. msgType .. "]"
   local typeTextSpacing = Utils.padRight("", longestTypeTextLength - #msgType)
+  write(typeTextSpacing)
   write("[")
   SetTextColor(GetColorForType(msgType))
   write(msgType)
   SetTextColor(colors.lightGray)
   write("]")
-  write(typeTextSpacing)
  
-  -- Write message.
-  SetTextColor(colors.white)
+  -- Message is line -> gray message color.
+  if(msgType == Type.Line) then
+    SetTextColor(colors.gray)
+  else --> Other messages -> white message color.
+    SetTextColor(colors.white)
+  end
+  
+  -- Write message with print to add linefeed at the end.
   print(message)
 end
 
