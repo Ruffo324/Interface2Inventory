@@ -1,8 +1,9 @@
 -- Console handler
 -- User for console output.
 
--- Resolve relative path for "Console.lua".
-local UtilsLibaryPath = shell.resolve("Utils.lua")
+-- Path for "Console.lua".
+--local UtilsLibaryPath = shell.resolve("Utils.lua")  -- TODO: Rethink this sometimes. http://computercraft.info/wiki/Os.loadAPI
+local UtilsLibaryPath = "I2I/Utils"
 -- "Utils.lua" not found -> error.
 if (not fs.exists(UtilsLibaryPath)) then
   error("[FATAL ERROR][CONSOLE] Can't find libary \"" .. UtilsLibaryPath .. "\".")

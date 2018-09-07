@@ -9,8 +9,8 @@ The script is written for the [**To The Core**](https://www.technicpack.net/modp
 ```shell
 mkdir I2I
 cd I2I
-../openp/github get Ruffo324/Interface2Inventory/master/Console.lua Console.lua
-../openp/github get Ruffo324/Interface2Inventory/master/Utils.lua Utils.lua
+../openp/github get Ruffo324/Interface2Inventory/master/Console.lua Console
+../openp/github get Ruffo324/Interface2Inventory/master/Utils.lua Utils
 ../openp/github get Ruffo324/Interface2Inventory/master/makelist.lua makelist
 ../openp/github get Ruffo324/Interface2Inventory/master/itemExporter.lua itemExporter
 ```
@@ -19,13 +19,13 @@ cd I2I
 ```shell
 cd /I2I 
 
-delete Console.lua
-delete Utils.lua
+delete Console
+delete Utils
 delete makelist
 delete itemExporter
 
-../openp/github get Ruffo324/Interface2Inventory/master/Console.lua Console.lua
-../openp/github get Ruffo324/Interface2Inventory/master/Utils.lua Utils.lua
+../openp/github get Ruffo324/Interface2Inventory/master/Console.lua Console
+../openp/github get Ruffo324/Interface2Inventory/master/Utils.lua Utils
 ../openp/github get Ruffo324/Interface2Inventory/master/makelist.lua makelist
 ../openp/github get Ruffo324/Interface2Inventory/master/itemExporter.lua itemExporter
 ```
