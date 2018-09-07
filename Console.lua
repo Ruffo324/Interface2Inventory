@@ -24,7 +24,8 @@ Type = {
   Debug = "Debug",
   Line = "------",
   Config = "Config",
-  Hint = "Hint"
+  Hint = "Hint",
+  Export = "Export"
 }
 
 ColorType = {
@@ -34,8 +35,9 @@ ColorType = {
   Init = colors.orange,
   Debug = colors.cyan,
   Line = colors.gray,
-  Config = colors.lime,
-  Hint = colors.blue
+  Config = colors.lightBlue,
+  Hint = colors.blue,
+  Export = color.lime
 }
 
 local longestTypeTextLength = 0
