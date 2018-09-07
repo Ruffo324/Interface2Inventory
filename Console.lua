@@ -113,11 +113,9 @@ function getMessageHeadLength(msgType)
   -- Check msgType.
   IsValidType(msgType)
 
+  -- Write message type with correct spacing for table like look and return length of it.
   local messageHeadLength = #getHeadDayTime()
-  -- Write message type with correct color code and correct spacing for table like look.
-  local typeText = msgType
   local typeTextSpacing = Utils.padRight("", longestTypeTextLength - #msgType) .. " | "
-
   return messageHeadLength + #typeText + #typeTextSpacing
 end
 
@@ -138,8 +136,8 @@ function WriteLine(msgType, message)
   SetTextColor(GetColorForType(msgType))
   write(msgType)
   SetTextColor(colors.lightGray)
-  write(" | ")
   write(typeTextSpacing)
+  write(" | ")
  
   -- Message is line -> gray message color.
   if(msgType == Type.Line) then
