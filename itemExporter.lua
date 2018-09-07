@@ -3,9 +3,11 @@ local ConsoleLibaryPath = shell.resolve("Console.lua")
 -- "Console.lua" not found -> error.
 if (not fs.exists(ConsoleLibaryPath)) then
   error("[FATAL ERROR] Can't find libary \"" .. ConsoleLibaryPath .. "\".")
+end
 -- "Console.lua" not loadable -> error.
-if(not os.loadAPI(ConsoleLibaryPath))
+if(not os.loadAPI(ConsoleLibaryPath)) then
   error("[FATAL ERROR] Can't load libary \"" .. ConsoleLibaryPath .. "\".")
+end
 
 -- The name or side of the ME Interface.
 local interfaceSide  = "back"

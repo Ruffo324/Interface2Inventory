@@ -6,9 +6,11 @@ local UtilsLibaryPath = shell.resolve("Utils.lua")
 -- "Utils.lua" not found -> error.
 if (not fs.exists(UtilsLibaryPath)) then
   error("[FATAL ERROR][CONSOLE] Can't find libary \"" .. UtilsLibaryPath .. "\".")
+end
 -- "Utils.lua" not loadable -> error.
-if(not os.loadAPI(UtilsLibaryPath))
+if(not os.loadAPI(UtilsLibaryPath)) then
   error("[FATAL ERROR][CONSOLE] Can't load libary \"" .. UtilsLibaryPath .. "\".")
+end
 
 --- Message types. Used for formatted console output.
 Type = {
