@@ -101,7 +101,7 @@ end
 function getHeadDayTime()
   return Utils.padRight(
           textutils.formatTime(os.time(), true)  -- Current time in 24H
-          .. "|" .. os.day()                     -- Minecraft world day.
+          .. " " .. os.day()                     -- Minecraft world day.
           .. "|", 6 + #tostring(os.day()))
 end
 
