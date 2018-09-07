@@ -116,7 +116,7 @@ function getMessageHeadLength(msgType)
   local messageHeadLength = #getHeadDayTime()
   -- Write message type with correct color code and correct spacing for table like look.
   local typeText = msgType .. " "
-  local typeTextSpacing = Utils.padRight("", longestTypeTextLength - #msgType) + " | "
+  local typeTextSpacing = Utils.padRight("", longestTypeTextLength - #msgType) .. " | "
 
   return messageHeadLength + #typeText + #typeTextSpacing
 end
