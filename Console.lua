@@ -30,12 +30,12 @@ Type = {
 -- @param message {string} The output string.
 function WriteLine(msgType, message)
   -- Check msgType.
-  isValidType(msgType)
+  IsValidType(msgType)
 
   -- Build string
   local typeTextSpacing = Utils.padRight("[" .. msgType .. "]", 10)
-  local finalMessage = "[Day " .. os.day() .. " - " .. textutils.formatTime(os.time(), false) .. "]"
-  finalMessage = Utils.padRight(finalMessage, 20) .. typeTextSpacing .. message
+  local finalMessage = "[" .. os.day() .. ", " .. textutils.formatTime(os.time(), true) .. "]"
+  finalMessage = Utils.padRight(finalMessage, 17) .. typeTextSpacing .. message
 
   -- Print formated message.
   print(finalMessage)
@@ -43,9 +43,9 @@ end
 
 --- Checks if the given message type is a existing Type.
 -- @error: Throws error if message type is not a valid Type.
-local function isValidType(msgType)
-  for k in pairs(Type) do
-    if (k == msgType) then
+function IsValidType(msgType)
+  for k,v in pairs(Type) do
+    if (v == msgType) then
       return
     end
   end
@@ -56,7 +56,7 @@ end
 --- Prints a line with length 40 in the console. 
 -- @param[opt="="] printChr Char for the printed line.
 function PrintLine(printChr)
-  printChr = printChr or "="
+  printChr = printChr or "-"
   -- printChr is more than one char -> error.
   if(#printChr ~= 1) then
     error("[FATAL ERROR][CONSOLE]The parameter \" printChr\" must be a string with a length of exactly one.")
