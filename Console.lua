@@ -75,17 +75,18 @@ function WriteLine(msgType, message)
   SetTextColor(colors.gray)
   write(Utils.padRight("[" .. os.day() .. ", " .. textutils.formatTime(os.time(), true) .. "]", 9 + #os.day()))
 
-  -- Write message type with correct color code.
+  -- Write message type with correct color code and correct spacing for table like look.
   local typeTextSpacing = Utils.padRight("[" .. msgType .. "]", 10 - #("[" .. msgType .. "]"))
   write("[")
   SetTextColor(GetColorForType(msgType))
+  write(msgType)
   SetTextColor(colors.gray)
   write("]")
   write(typeTextSpacing)
  
   -- Write message.
   SetTextColor(colors.white)
-  write(finalMessage, 14))
+  write(nessage)
 end
 
 --- Sets the console text color to the given colorStr.
