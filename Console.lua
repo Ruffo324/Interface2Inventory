@@ -160,7 +160,7 @@ function WriteLine(msgType, message, monitor)
 
   -- Write message with linefeed at the end.
   monitor.write(message)
-  monitor.scroll(1)
+  CursorToNextLine(monitor)
 end
 
 --- Prints a line with length perfect length to cut the console. 
@@ -182,8 +182,16 @@ end
 function ClearScreen(monitor)
   monitor = monitor or term
   for i = 1, 255 do
-    monitor.scroll(1)
+    CursorToNextLine(monitor)
   end
+end
+
+--- Sets the cursor to the next line
+-- @param[opt=term] monitor Monitor on wich the cursor should be setten.
+function CursorToNextLine(monitor)
+  monitor = monitor or term
+  X, Y = monitor.getCursorPos()
+  monitor.setCursorPos(1, Y + 1)
 end
 
 
