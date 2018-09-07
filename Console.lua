@@ -37,7 +37,7 @@ ColorType = {
   Line = colors.gray,
   Config = colors.lightBlue,
   Hint = colors.blue,
-  Export = color.lime
+  Export = colors.lime
 }
 
 local longestTypeTextLength = 0
