@@ -86,6 +86,29 @@ function SetTextColor(colorStr)
   term.setTextColor(colorStr)
 end
 
+--- Returns the message day and time head part.
+--- "[XX, XX:XX]"
+-- @returns Color free string with this format: "[XX, XX:XX]".
+function getHeadDayTime()
+  return Utils.padRight("[" 
+  .. os.day() .. ", " -- Minecraft world day.
+  .. textutils.formatTime(os.time(), true)  -- Current time in 24H
+  .. "]", 9 + #tostring(os.day()))
+end
+
+--TODO: Rewrite this with function "cleanDurtyString(coloredString)".. [CleanerCode]
+--- Returns the string length for the message head. 
+--- "[12, XX:XX][TYPE]   "
+--- Without color codes.
+-- @returns The length of the full message head without colors.
+function getMessageHeadLength(msgType)
+  local messageHeadLength = #getHeadDayTime()
+  -- Write message type with correct color code and correct spacing for table like look.
+  local typeText = "[" .. msgType .. "]"
+  local typeTextSpacing = Utils.padRight("", longestTypeTextLength - #msgType)
+
+  return messageHeadLength + #typeText + #typeTextSpacing
+end
 
 --- Writes a new line to the console output. Formated with the Type and time.
 -- @param msgType {Console.Type} The type of the message.
@@ -95,11 +118,8 @@ function WriteLine(msgType, message)
   IsValidType(msgType)
 
   -- Write day, time in gray.
-  SetTextColor(colors.gray)
-  write(Utils.padRight("[" 
-     .. os.day() .. ", " -- Minecraft world day.
-     .. textutils.formatTime(os.time(), true)  -- Current time in 24H
-     .. "]", 9 + #tostring(os.day()))) -- Correct padRight, added day length.
+  SetTextColor(colors.lightGray)
+  write(getHeadDayTime()) -- Correct padRight, added day length.
 
   -- Write message type with correct color code and correct spacing for table like look.
   local typeText = "[" .. msgType .. "]"
@@ -107,7 +127,7 @@ function WriteLine(msgType, message)
   write("[")
   SetTextColor(GetColorForType(msgType))
   write(msgType)
-  SetTextColor(colors.gray)
+  SetTextColor(colors.lightGray)
   write("]")
   write(typeTextSpacing)
  
@@ -116,7 +136,7 @@ function WriteLine(msgType, message)
   print(message)
 end
 
---- Prints a line with length 40 in the console. 
+--- Prints a line with length perfect length to cut the console. 
 -- @param[opt="="] printChr Char for the printed line.
 function PrintLine(printChr)
   printChr = printChr or "-"
@@ -124,7 +144,12 @@ function PrintLine(printChr)
   if(#printChr ~= 1) then
     error("[FATAL ERROR][CONSOLE]The parameter \" printChr\" must be a string with a length of exactly one.")
   end
-  WriteLine(Type.Line, Utils.padRight("", 40, printChr))
+
+  local w, h = term.getSize()loca
+
+  
+
+  WriteLine(Type.Line, Utils.padRight("", , printChr))
 end
 
 --- Workaround for os.execute("clear")
