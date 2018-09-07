@@ -129,7 +129,7 @@ local function ServerStartup()
   -- Clear console and write startup things.
   Console.ClearScreen()
   Console.PrintLine("-")
-  getOrCreateSettingsFile()
+  GetOrCreateSettingsFile()
   Console.PrintLine("-")
 
   -- Parse interfaces.
