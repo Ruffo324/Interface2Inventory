@@ -11,10 +11,24 @@ end
 
 -- Configuration variables, overwritten by "./I2Iconfig".
 -- This are the default values for new config files.
-local interfaceSide             = "back" 
-local exportDirection           = "east" 
-local tickInterval              = 5 
-local itemsConfigurationFile    = "./items.cfg" 
+-- IMPORTANT: 
+local interfaceSide             = "back"  -- The name or side of the ME Interface.
+local exportDirection           = "east"  -- The export direction (target inventory) relative to the ME Interface.
+local tickInterval              = 5  -- The export program tick interval. Recommended range is between 5 and 60 seconds.
+local itemsConfigurationFile    = "./items.cfg" -- The file where the item-rules are setten. 
+local monitorFetchingItems      = "none" -- Monitor for the overview which items are exported. 
+
+--- Writes the default settings to the given file.
+-- @param filePath The settings file path.
+function WriteDefaultSettings(filePath)
+  local file = io.open(filePath, "w")
+  file:write("interfaceSide = \"" .. interfaceSide .."\" -- The name or side of the ME Interface.\n")
+  file:write("exportDirection = \"" .. exportDirection .."\" -- The export direction (target inventory) relative to the ME Interface.\n")
+  file:write("tickInterval = " .. tickInterval .." -- The export program tick interval. Recommended range is between 5 and 60 seconds.\n")
+  file:write("itemsConfigurationFile = \"" .. itemsConfigurationFile .."\" -- The file where the item-rules are setten. \n")
+  file:write("monitorFetchingItems = \"" .. monitorFetchingItems .."\" -- Monitor for the overview which items are exported. \n")
+  file:close()
+end
 
 -- Internal variables
 local interface = peripheral.wrap(interfaceSide)
@@ -65,9 +79,23 @@ local function mainTick()
   end
 end
 
+
+function drawFetchingItemsToMonitor()
+  -- No fetching items monitor given -> output warning.
+  if(monitorFetchingItems == "none")
+    Console.WriteLine(Console.Type.Warn, "No monitor set for the item overview.")
+    return
+  end
+
+  -- Loop throug items.
+  for key, value in pairs(exports) do
+    Console.WriteLine(Console.Type.Debug, key .. " - " .. value)
+  end
+end
+
 --- Gets the settings from the "I2I.cfg" file.
 --- If there is no settings file, it creates one.
-function getOrCreateSettingsFile()
+function GetOrCreateSettingsFile()
   local settingsFilePath = shell.resolve("./I2Iconfig")
 
   -- There is no settings file? -> create one.
@@ -76,12 +104,7 @@ function getOrCreateSettingsFile()
     Console.WriteLine(Console.Type.Hint, "Creating new \"./I2Iconfig\"")
     Console.WriteLine(Console.Type.Hint, "with default settings..")
 
-    local file = io.open(settingsFilePath, "w")
-    file:write("interfaceSide = \"" .. interfaceSide .."\" -- The name or side of the ME Interface.\n")
-    file:write("exportDirection = \"" .. exportDirection .."\" -- The export direction (target inventory) relative to the ME Interface.\n")
-    file:write("tickInterval = " .. tickInterval .." -- The export program tick interval. Recommended range is between 5 and 60 seconds.\n")
-    file:write("itemsConfigurationFile = \"" .. itemsConfigurationFile .."\" -- The file where the item-rules are setten. \n")
-    file:close()
+    WriteDefaultSettings(settingsFilePath)          
     Console.WriteLine(Console.Type.Hint, "done.")
   end    
 
@@ -120,14 +143,21 @@ local function ServerStartup()
   if (not fs.exists(itemsCfgPath)) then
     error("There is no \"" .. itemsCfgPath .. "\" file.")
   end
+
   -- Load and serialize items.cfg.
   local f = fs.open(itemsCfgPath, "r")
   exports = textutils.unserialise(f.readAll())
   f.close()
+  
+  -- drawing item overview.
+  Console.WriteLine(Console.Type.Init, "Writing item overview")
+  Console.WriteLine(Console.Type.Init, "on monitor \"" .. monitorFetchingItems .. "\"")
+  drawFetchingItemsToMonitor()
 
   -- Startup done.
   Console.WriteLine(Console.Type.Info, "Startup done.")
   Console.PrintLine("-")
+
 end
 
 --- Entry point of the program.

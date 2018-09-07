@@ -93,8 +93,10 @@ function GetColorForType(msgType)
 end
 
 --- Sets the console text color to the given colorStr.
-function SetTextColor(colorStr)
-  term.setTextColor(colorStr)
+-- @param[opt=term] monitor Monitor that color should be changed.
+function SetTextColor(colorStr, monitor)
+  monitor = monitor or term
+  monitor.setTextColor(colorStr)
 end
 
 --- Returns the message day and time head part.
@@ -125,57 +127,60 @@ end
 --- Writes a new line to the console output. Formated with the Type and time.
 -- @param msgType {Console.Type} The type of the message.
 -- @param message {string} The output string.
-function WriteLine(msgType, message)
+-- @param[opt=term] monitor Outputmonitor for the message.
+function WriteLine(msgType, message, monitor)
+  monitor = monitor or term
+
   -- Check msgType.
   IsValidType(msgType)
 
   -- Write day, time in gray.
-  SetTextColor(colors.lightGray)
-  write(getHeadDayTime()) -- Correct padRight, added day length.
+  SetTextColor(colors.lightGray, monitor)
+  monitor.write(getHeadDayTime()) -- Correct padRight, added day length.
 
   -- Write message type with correct color code and correct spacing for table like look.
   local typeText = msgType
   local typeTextSpacing = Utils.padRight("", longestTypeTextLength - #msgType)
-  SetTextColor(GetColorForType(msgType))
-  write(msgType)
-  SetTextColor(colors.lightGray)
-  write(typeTextSpacing)
-  write("|")
+  SetTextColor(GetColorForType(msgType), monitor)
+  monitor.write(msgType)
+  SetTextColor(colors.lightGray, monitor)
+  monitor.write(typeTextSpacing)
+  monitor.write("|")
  
   -- Message is line -> gray message color.
   if (msgType == Type.Line) then
-    SetTextColor(colors.gray)
+    SetTextColor(colors.gray, monitor)
   elseif (msgType == Type.Warn) then -- Message is warn -> orange message color.
-    SetTextColor(colors.orange)
+    SetTextColor(colors.orange, monitor)
   elseif (msgType == Type.Error) then -- Message is error -> red message color.
-    SetTextColor(colors.red)
+    SetTextColor(colors.red, monitor)
   else --> Other messages -> white message color.
-    SetTextColor(colors.white)
+    SetTextColor(colors.white, monitor)
   end
-  
+
   -- Write message with print to add linefeed at the end.
-  print(message)
+  monitor.print(message)
 end
 
 --- Prints a line with length perfect length to cut the console. 
 -- @param[opt="-"] printChr Char for the printed line.
-function PrintLine(printChr)
+-- @param[opt=term] monitor Outputmonitor for the message.
+function PrintLine(printChr, monitor)
   printChr = printChr or "-"
   -- printChr is more than one char -> error.
   if(#printChr ~= 1) then
     error("[FATAL ERROR][CONSOLE]The parameter \"printChr\" must be a string with a length of exactly one.")
   end
 
-
-  WriteLine(Type.Line, Utils.padRight("", consoleWidth - getMessageHeadLength(Type.Line), printChr))
+  WriteLine(Type.Line, Utils.padRight("", consoleWidth - getMessageHeadLength(Type.Line), printChr), monitor)
 end
 
 --- Workaround for os.execute("clear")
 --- Function just flooded the console with empty prints.
-function ClearScreen()
-  for i = 1, 255 do
-    print()
-  end
+--@param[opt=term] monitor Monitor wich should be cleaned.
+function ClearScreen(monitor)
+  monitor = monitor or term
+  monitor.clear()
 end
 
 
