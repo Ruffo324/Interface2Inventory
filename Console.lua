@@ -64,6 +64,12 @@ function GetColorForType(msgType)
  error("[FATAL ERROR][CONSOLE] The type \"" .. msgType.. "\" has no \"Console.ColorType\".")
 end
 
+--- Sets the console text color to the given colorStr.
+function SetTextColor(colorStr)
+  term.setTextColor(colorStr)
+end
+
+
 --- Writes a new line to the console output. Formated with the Type and time.
 -- @param msgType {Console.Type} The type of the message.
 -- @param message {string} The output string.
@@ -76,7 +82,8 @@ function WriteLine(msgType, message)
   write(Utils.padRight("[" .. os.day() .. ", " .. textutils.formatTime(os.time(), true) .. "]", 9 + #os.day()))
 
   -- Write message type with correct color code and correct spacing for table like look.
-  local typeTextSpacing = Utils.padRight("[" .. msgType .. "]", 10 - #("[" .. msgType .. "]"))
+  local typeText = "[" .. msgType .. "]"
+  local typeTextSpacing = Utils.padRight(typeText, 10 - #typeText)
   write("[")
   SetTextColor(GetColorForType(msgType))
   write(msgType)
@@ -86,14 +93,8 @@ function WriteLine(msgType, message)
  
   -- Write message.
   SetTextColor(colors.white)
-  write(nessage)
+  write(message)
 end
-
---- Sets the console text color to the given colorStr.
-function SetTextColor(colorStr)
-  term.setTextColor(colorStr)
-end
-
 
 --- Prints a line with length 40 in the console. 
 -- @param[opt="="] printChr Char for the printed line.
