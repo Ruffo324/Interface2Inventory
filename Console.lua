@@ -64,7 +64,7 @@ function GetColorForType(msgType)
       end
     end
   end
-  
+
  -- There is no color for the given type -> error.
  error("[FATAL ERROR][CONSOLE] The type \"" .. msgType.. "\" has no \"Console.ColorType\".")
 end
@@ -101,7 +101,7 @@ function WriteLine(msgType, message)
  
   -- Write message.
   SetTextColor(colors.white)
-  write(message)
+  print(message)
 end
 
 --- Prints a line with length 40 in the console. 
