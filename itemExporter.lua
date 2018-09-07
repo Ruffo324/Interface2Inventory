@@ -82,7 +82,7 @@ end
 
 function drawFetchingItemsToMonitor()
   -- No fetching items monitor given -> output warning.
-  if(monitorFetchingItems == "none")
+  if(monitorFetchingItems == "none") then
     Console.WriteLine(Console.Type.Warn, "No monitor set for the item overview.")
     return
   end
@@ -148,7 +148,7 @@ local function ServerStartup()
   local f = fs.open(itemsCfgPath, "r")
   exports = textutils.unserialise(f.readAll())
   f.close()
-  
+
   -- drawing item overview.
   Console.WriteLine(Console.Type.Init, "Writing item overview")
   Console.WriteLine(Console.Type.Init, "on monitor \"" .. monitorFetchingItems .. "\"")
