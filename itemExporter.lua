@@ -87,7 +87,7 @@ end
 local function ServerStartup()
 
     -- Clear console and write startup things.
-    os.execute("clear")
+    Console.ClearScreen()
     Console.PrintLine("=")
     printConstInfo()
     Console.PrintLine("=")

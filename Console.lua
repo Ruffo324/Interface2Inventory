@@ -63,3 +63,11 @@ function PrintLine(printChr)
   end
   WriteLine(Type.Line, Utils.padRight("", 40, printChr))
 end
+
+--- Workaround for os.execute("clear")
+--- Function just flooded the console with empty prints.
+function ClearScreen()
+  for i = 1, 255 do
+    print()
+  end
+end
