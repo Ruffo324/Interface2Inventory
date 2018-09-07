@@ -45,7 +45,7 @@ local function mainTick()
     end
     itemCount = itemCount - item.preserve
     if (itemCount > 0) then
-      Console.WriteLine(Console.Type.Job, 
+      Console.WriteLine(Console.Type.Info, 
       "Exporting \"" ..fingerprint.id .. "\" [".. itemCount + item.preserve .."/" .. item.preserve .. "].")
       -- Todo: Remove if output is nice.
       --print("Exportiere [" .. item.name .. "]")
