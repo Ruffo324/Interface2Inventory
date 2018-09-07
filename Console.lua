@@ -56,16 +56,15 @@ end
 -- @error Throws error if there is no matching ColorType for the given Type.
 function GetColorForType(msgType)
   for key1, value1 in pairs(Type) do
-    if (key1 == msgType) then
+    if (value1 == msgType) then
       for key2, value2 in pairs(ColorType) do
-        if (value2 == key2) then
+        if (key1 == key2) then
           return value2
         end
       end
     end
   end
-
- 
+  
  -- There is no color for the given type -> error.
  error("[FATAL ERROR][CONSOLE] The type \"" .. msgType.. "\" has no \"Console.ColorType\".")
 end
