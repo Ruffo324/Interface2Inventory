@@ -38,17 +38,10 @@ local function mainTick()
         break
       end
     end
+
     itemCount = itemCount - item.preserve
     if (itemCount > 0) then
-      Console.WriteLine(Console.Type.Info, 
-      fingerprint.id .. "[".. itemCount .. "/" .. item.preserve .. "]")
-      -- Todo: Remove if output is nice.
-      --print("Exportiere [" .. item.name .. "]")
-      --print("  id      : " ..)
-      --print("  dmg     : " .. fingerprint.dmg)
-      --print("  nbt_hash: " .. fingerprint.nbt_hash)
-      --print("  Anzahl  : " ..)
-      --print("  Mindestbestand: " .. item.preserve)
+      Console.WriteLine(Console.Type.Export, fingerprint.id .. "[".. itemCount .. "/" .. item.preserve .. "]")
       while (itemCount > 0) do
         -- Prevent "Too long without yielding" error
         local loopTimerId = os.startTimer(0.1) 
@@ -60,7 +53,7 @@ local function mainTick()
           local status = interface.exportItem(fingerprint, exportDirection, amount)
           itemCount = itemCount - status.size
           if (status.size ~= amount) then
-            print("Container space exceeded.")
+            Console.WriteLine(Console.Type.Error, "Container space exceeded.")
             return
           end
           local event, timerId = os.pullEvent("timer")    
@@ -141,7 +134,7 @@ end
 --- Entry point of the program.
 local function main()
   ServerStartup()
-  Console.WriteLine(Console.Type.Hint, "Press \"CTRL + T\" for ~2 seconds to terminate.")
+  Console.WriteLine(Console.Type.Hint, "Hold \"CTRL + T\" to terminate.")
   -- Begin with tick loop
   while (true) do
     mainTick()
