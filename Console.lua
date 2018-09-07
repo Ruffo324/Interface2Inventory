@@ -159,7 +159,8 @@ function WriteLine(msgType, message, monitor)
   end
 
   -- Write message with linefeed at the end.
-  monitor.write(message .. "\n")
+  monitor.write(message)
+  monitor.scroll(1)
 end
 
 --- Prints a line with length perfect length to cut the console. 
@@ -181,7 +182,7 @@ end
 function ClearScreen(monitor)
   monitor = monitor or term
   for i = 1, 255 do
-    monitor.print()
+    monitor.scroll(1)
   end
 end
 
