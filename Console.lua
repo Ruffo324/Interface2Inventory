@@ -91,7 +91,7 @@ function WriteLine(msgType, message)
 
   -- Write message type with correct color code and correct spacing for table like look.
   local typeText = "[" .. msgType .. "]"
-  local typeTextSpacing = Utils.padRight(typeText, 12 - #typeText)
+  local typeTextSpacing = Utils.padRight("", 12 - #typeText)
   write("[")
   SetTextColor(GetColorForType(msgType))
   write(msgType)
