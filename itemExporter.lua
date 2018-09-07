@@ -45,12 +45,15 @@ local function mainTick()
     end
     itemCount = itemCount - item.preserve
     if (itemCount > 0) then
-      print("Exportiere [" .. item.name .. "]")
-      print("  id      : " .. fingerprint.id)
-      print("  dmg     : " .. fingerprint.dmg)
-      print("  nbt_hash: " .. fingerprint.nbt_hash)
-      print("  Anzahl  : " .. itemCount + item.preserve)
-      print("  Mindestbestand: " .. item.preserve)
+      Console.WriteLine(Console.Type.Job, 
+      "Exporting \"" ..fingerprint.id .. "\" [".. itemCount + item.preserve .."/" .. item.preserve .. "].")
+      -- Todo: Remove if output is nice.
+      --print("Exportiere [" .. item.name .. "]")
+      --print("  id      : " ..)
+      --print("  dmg     : " .. fingerprint.dmg)
+      --print("  nbt_hash: " .. fingerprint.nbt_hash)
+      --print("  Anzahl  : " ..)
+      --print("  Mindestbestand: " .. item.preserve)
       while (itemCount > 0) do
         -- Prevent "Too long without yielding" error
         local loopTimerId = os.startTimer(0.1) 
@@ -116,7 +119,7 @@ end
 --- Entry point of the program.
 local function main()
   ServerStartup()
-  Console.WriteLine(Console.Type.Hint, "Start with the processing. Press \"CTRL + T\" for ~2 seconds to terminate.")
+  Console.WriteLine(Console.Type.Hint, "Press \"CTRL + T\" for ~2 seconds to terminate.")
   -- Begin with tick loop
   while (true) do
     mainTick()

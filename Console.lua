@@ -22,7 +22,8 @@ Type = {
   Debug = "Debug",
   Line = "=====",
   Config = "Config",
-  Hint = "Hint"
+  Hint = "Hint",
+  Job = "Job"
 }
 
 --- Writes a new line to the console output. Formated with the Type and time.
@@ -33,9 +34,9 @@ function WriteLine(msgType, message)
   IsValidType(msgType)
 
   -- Build string
-  local typeTextSpacing = Utils.padRight("[" .. msgType .. "]", 10)
   local finalMessage = "[" .. os.day() .. ", " .. textutils.formatTime(os.time(), true) .. "]"
-  finalMessage = Utils.padRight(finalMessage, 17) .. typeTextSpacing .. message
+  local typeTextSpacing = Utils.padRight("[" .. msgType .. "]", 10)
+  finalMessage = Utils.padRight(finalMessage, 14) .. typeTextSpacing .. message
 
   -- Print formated message.
   print(finalMessage)
