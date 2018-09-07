@@ -18,7 +18,8 @@ Type = {
   Init = "Init",
   Debug = "Debug",
   Line = "=====",
-  Config = "Config"
+  Config = "Config",
+  Hint = "Hint"
 }
 
 --- Writes a new line to the console output. Formated with the Type and time.
@@ -51,7 +52,7 @@ end
 
 --- Prints a line with length 40 in the console. 
 -- @param[opt="="] printChr Char for the printed line.
-local function PrintLine(printChr)
+function PrintLine(printChr)
   printChr = printChr or "="
   -- printChr is more than one char -> error.
   if(#printChr ~= 1) then

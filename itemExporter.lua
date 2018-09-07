@@ -24,7 +24,6 @@ local exports   = {}
 
 -- Main
 local function mainTick()
-  print("Getting available items from interface \"\"")
   local items = interface.getAvailableItems()
   for index, item in pairs(exports) do
     local fingerprint = {}
@@ -66,44 +65,52 @@ local function mainTick()
             break
           end
         end
-
       end
     end
   end
 end
 
--- Prints informations about the programm settings.
+--- Prints informations about the programm settings.
 local function printConstInfo()
   Console.WriteLine(Console.Type.Config, "Interface side:   ".. interfaceSide)
   Console.WriteLine(Console.Type.Config, "Export direction: ".. exportDirection)
   Console.WriteLine(Console.Type.Config, "Tick interval:    ".. tickInterval)
 end
 
-local function main()
-  -- Write startup things.
-  Console.PrintLine("=")
-  printConstInfo()
-  Console.PrintLine("=")
-
-  -- Parse interfaces.
-  Console.WriteLine(Console.Type.Init, "Parsing given interface.")
-  interface = peripheral.wrap(interfaceSide)
-
-  -- Read "items.cfg"
-  -- Todo: Name of the file adjustable.
-  Console.WriteLine(Console.Type.Init, "Reading \"items.cfg\".")
-  local itemsCfgPath = shell.resolve("items.cfg")
-  -- File "items.cfg" does not exist -> error.
-  if (not fs.exists(itemsCfgPath)) then
-    error("There is no \"items.cfg\" file.")
-  end
-  -- Load and serialize items.cfg.
-  local f = fs.open(itemsCfgPath, "r")
-  exports = textutils.unserialise(f.readAll())
-  f.close()
+--- Does all the things that are needed on Server startup.
+--- Also giving advanced console output.
+local function ServerStartup()
+    -- Write startup things.
+    Console.PrintLine("=")
+    printConstInfo()
+    Console.PrintLine("=")
   
-  print("[INIT] Programm startup done.")
-  printLine() -- line
+    -- Parse interfaces.
+    Console.WriteLine(Console.Type.Init, "Parsing given interface.")
+    interface = peripheral.wrap(interfaceSide)
+  
+    -- Read "items.cfg"
+    Console.WriteLine(Console.Type.Init, "Reading \"items.cfg\".")
+    local itemsCfgPath = shell.resolve("items.cfg")
+    -- File "items.cfg" does not exist -> error.
+    if (not fs.exists(itemsCfgPath)) then
+      error("There is no \"" .. itemsCfgPath .. "\" file.")
+    end
+    -- Load and serialize items.cfg.
+    local f = fs.open(itemsCfgPath, "r")
+    exports = textutils.unserialise(f.readAll())
+    f.close()
+  
+    -- Startup done.
+    Console.WriteLine(Console.Type.Info, "Startup done.")
+    Console.PrintLine("=")
+end
+
+--- Entry point of the program.
+local function main()
+  ServerStartup()
+  Console.WriteLine(Console.Type.Hint, "Start with the processing. Press \"CTRL + T\" for ~2 seconds to terminate.")
+  -- Begin with tick loop
   while (true) do
     mainTick()
     local loopTimerId = os.startTimer(tickInterval) 
@@ -116,6 +123,7 @@ local function main()
   end
 end
 
+--- Endless loop, calling entry point.
 while true do
   -- Prevent "not attached" error
   pcall(main())
