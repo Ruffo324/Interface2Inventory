@@ -22,6 +22,8 @@ local tickInterval    = 5
 local interface = peripheral.wrap(interfaceSide)
 local exports   = {}
 
+
+
 -- Main
 local function mainTick()
   local items = interface.getAvailableItems()
@@ -80,7 +82,9 @@ end
 --- Does all the things that are needed on Server startup.
 --- Also giving advanced console output.
 local function ServerStartup()
-    -- Write startup things.
+
+    -- Clear console and write startup things.
+    os.execute("clear")
     Console.PrintLine("=")
     printConstInfo()
     Console.PrintLine("=")

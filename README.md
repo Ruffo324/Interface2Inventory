@@ -2,15 +2,33 @@
 I am not the official author of this script. 
 The scripts **"makelist"** and **"I2I"** are based on this [Source](http://www.computercraft.info/forums2/index.php?/topic/24612-applied-energistics-item-exporter/). So the idea, and the base script comes from the author **[zacherl1990](http://www.computercraft.info/forums2/index.php?/user/18374-zacherl1990/)**.
 
-# Todo
-Write readme file complete.
+The script is written for the [**To The Core**](https://www.technicpack.net/modpack/to-the-core-official.1293279) *Technic Launcher* modpack.
+
+
+# Installation
+```shell
+mkdir I2I
+cd I2I
+../openp/github get Ruffo324/Interface2Inventory/master/Console.lua Console.lua
+../openp/github get Ruffo324/Interface2Inventory/master/Utils.lua Utils.lua
+../openp/github get Ruffo324/Interface2Inventory/master/makelist.lua makelist
+../openp/github get Ruffo324/Interface2Inventory/master/itemExporter.lua itemExporter
+```
+
 
 # How to use
 ### Script "makelist"
 To quickly and easily create a configuration file for I2I, there is the **"makelist"** command.
-
+```shell
+makelist [side]
+```
 
 ### Script "itemExporter"
+```shell
+itemExporter
+```
+
+
 *TODO: Write this comments down into readme file*
 ```Lua
 --================================================================================================--
@@ -33,9 +51,9 @@ To quickly and easily create a configuration file for I2I, there is the **"makel
 --
 -- Table format (items.cfg):
 -- {
---   {
---     fingerprint = {
---       id = "minecraft:gold_ore",
+  --   {
+    --     fingerprint = {
+      --       id = "minecraft:gold_ore",
 --       dmg = 0,
 --       nbt_hash = "3288456351062a1d4b01b5774241a664"
 --     },
@@ -49,3 +67,7 @@ To quickly and easily create a configuration file for I2I, there is the **"makel
 --
 --================================================================================================--
 ```
+
+
+# Todo
+Write readme file complete.
