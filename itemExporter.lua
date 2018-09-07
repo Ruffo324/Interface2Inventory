@@ -10,22 +10,16 @@ if(not os.loadAPI(ConsoleLibaryPath)) then
   error("[FATAL ERROR] Can't load libary \"" .. ConsoleLibaryPath .. "\".")
 end
 
--- The name or side of the ME Interface.
-local interfaceSide  = "back"
-
--- The export direction (target inventory) relative to the ME Interface.
-local exportDirection = "north"
-
--- The export program tick interval. Recommended range is between 5 and 60 seconds.
-local tickInterval    = 5
-
---================================================================================================--
+-- Configuration variables.
+local interfaceSide             = "back" -- The name or side of the ME Interface.
+local exportDirection           = "right" -- The export direction (target inventory) relative to the ME Interface.
+local tickInterval              = 5 -- The export program tick interval. Recommended range is between 5 and 60 seconds.
+local itemsConfigurationFile    = "items.cfg" -- The file where the item-rules are setten. 
+getOrCreateSettingsFile();
 
 -- Internal variables
 local interface = peripheral.wrap(interfaceSide)
 local exports   = {}
-
-
 
 -- Main
 local function mainTick()
@@ -37,7 +31,8 @@ local function mainTick()
       if ((a.fingerprint.id == item.fingerprint.id) and 
           ((item.fingerprint.dmg == nil) or (a.fingerprint.dmg == item.fingerprint.dmg)) and 
           ((item.fingerprint.nbt_hash == nil) or 
-          (a.fingerprint.nbt_hash == item.fingerprint.nbt_hash))) then
+          (a.fingerprint.nbt_hash == item.fingerprint.nbt_hash))) 
+      then
         fingerprint = a.fingerprint
         itemCount = a.size
         break
@@ -78,42 +73,67 @@ local function mainTick()
   end
 end
 
---- Prints informations about the programm settings.
-local function printConstInfo()
-  Console.WriteLine(Console.Type.Config, "Interface side:   ".. interfaceSide)
-  Console.WriteLine(Console.Type.Config, "Export direction: ".. exportDirection)
-  Console.WriteLine(Console.Type.Config, "Tick interval:    ".. tickInterval)
+--- Gets the settings from the "I2I.cfg" file.
+--- If there is no settings file, it creates one.
+function getOrCreateSettingsFile()
+  local settingsFilePath = shell.resolve("./I2I.cfg")
+
+  -- There is no settings file? -> create one.
+  if(not settings.load(settingsFilePath)) then
+    Console.WriteLine(Console.Type.Warn, "There is not \"./I2I.cfg\" file.")
+    Console.WriteLine(Console.Type.Hint, "Creating new \"./I2I.cfg\" with default settings..")
+    settings.set("interfaceSide", interfaceSide)
+    settings.set("exportDirection", exportDirection)
+    settings.set("tickInterval", tickInterval)
+    settings.set("itemsConfigurationFile", itemsConfigurationFile)
+    settings.save(settingsFilePath)
+    Console.WriteLine(Console.Type.Hint, "done.")
+  end    
+  settings.Clear()
+
+  -- Load settings file
+  Console.WriteLine(Console.Type.Init, "Loading settings from \"./I2I.cfg\".")
+  settings.load(settingsFilePath)
+  interfaceSide = settings.get("interfaceSide", interfaceSide)
+  exportDirection = settings.get("exportDirection", exportDirection)
+  tickInterval = settings.get("tickInterval", tickInterval)
+  itemsConfigurationFile = settings.get("itemsConfigurationFile", itemsConfigurationFile)
+
+  -- Write values of settings to console
+  Console.WriteLine(Console.Type.Config, "Interface side:   " .. interfaceSide)
+  Console.WriteLine(Console.Type.Config, "Export direction: " .. exportDirection)
+  Console.WriteLine(Console.Type.Config, "Tick interval:    " .. tickInterval)
+  Console.WriteLine(Console.Type.Config, "Items config:     " .. itemsConfigurationFile)
 end
 
 --- Does all the things that are needed on Server startup.
 --- Also giving advanced console output.
 local function ServerStartup()
+  -- Clear console and write startup things.
+  Console.ClearScreen()
+  Console.PrintLine("-")
+  getOrCreateSettingsFile()
+  Console.PrintLine("-")
 
-    -- Clear console and write startup things.
-    Console.ClearScreen()
-    Console.PrintLine("-")
-    printConstInfo()
-    Console.PrintLine("-")
-  
-    -- Parse interfaces.
-    Console.WriteLine(Console.Type.Init, "Parsing given interface.")
-    interface = peripheral.wrap(interfaceSide)
-  
-    -- Read "items.cfg"
-    Console.WriteLine(Console.Type.Init, "Reading \"items.cfg\".")
-    local itemsCfgPath = shell.resolve("items.cfg")
-    -- File "items.cfg" does not exist -> error.
-    if (not fs.exists(itemsCfgPath)) then
-      error("There is no \"" .. itemsCfgPath .. "\" file.")
-    end
-    -- Load and serialize items.cfg.
-    local f = fs.open(itemsCfgPath, "r")
-    exports = textutils.unserialise(f.readAll())
-    f.close()
-  
-    -- Startup done.
-    Console.WriteLine(Console.Type.Info, "Startup done.")
-    Console.PrintLine("-")
+  -- Parse interfaces.
+  Console.WriteLine(Console.Type.Init, "Parsing given interface.")
+  interface = peripheral.wrap(interfaceSide)
+
+  -- Read "items.cfg"
+  Console.WriteLine(Console.Type.Init, "Reading \"" .. itemsCfgPath .. "\".")
+  local itemsCfgPath = shell.resolve(itemsConfigurationFile)
+  -- File "items.cfg" does not exist -> error.
+  if (not fs.exists(itemsCfgPath)) then
+    error("There is no \"" .. itemsCfgPath .. "\" file.")
+  end
+  -- Load and serialize items.cfg.
+  local f = fs.open(itemsCfgPath, "r")
+  exports = textutils.unserialise(f.readAll())
+  f.close()
+
+  -- Startup done.
+  Console.WriteLine(Console.Type.Info, "Startup done.")
+  Console.PrintLine("-")
 end
 
 --- Entry point of the program.
