@@ -93,7 +93,7 @@ function getOrCreateSettingsFile()
   end    
 
   -- Load settings file
-  Console.WriteLine(Console.Type.Init, "Loading settings from \"./I2Iconfig\".")
+  Console.WriteLine(Console.Type.Init, "Loading config \"./I2Iconfig\".")
   os.loadAPI(settingsFilePath)
   interfaceSide = I2Iconfig.interfaceSide
   exportDirection = I2Iconfig.exportDirection
@@ -121,8 +121,8 @@ local function ServerStartup()
   interface = peripheral.wrap(interfaceSide)
 
   -- Read "items.cfg"
-  Console.WriteLine(Console.Type.Init, "Reading \"" .. itemsCfgPath .. "\".")
   local itemsCfgPath = shell.resolve(itemsConfigurationFile)
+  Console.WriteLine(Console.Type.Init, "Reading \"" .. itemsCfgPath .. "\".")
   -- File "items.cfg" does not exist -> error.
   if (not fs.exists(itemsCfgPath)) then
     error("There is no \"" .. itemsCfgPath .. "\" file.")

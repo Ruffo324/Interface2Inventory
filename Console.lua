@@ -143,11 +143,11 @@ function WriteLine(msgType, message)
   write("|")
  
   -- Message is line -> gray message color.
-  if(msgType == Type.Line) then
+  if (msgType == Type.Line) then
     SetTextColor(colors.gray)
-  else if (msgType == Type.Warn) then -- Message is warn -> orange message color.
+  elseif (msgType == Type.Warn) then -- Message is warn -> orange message color.
     SetTextColor(colors.orange)
-  else if (msgType == Type.Error) then -- Message is error -> red message color.
+  elseif (msgType == Type.Error) then -- Message is error -> red message color.
     SetTextColor(colors.red)
   else --> Other messages -> white message color.
     SetTextColor(colors.white)
