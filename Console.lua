@@ -115,7 +115,7 @@ function getMessageHeadLength(msgType)
 
   local messageHeadLength = #getHeadDayTime()
   -- Write message type with correct color code and correct spacing for table like look.
-  local typeText = msgType .. " "
+  local typeText = msgType
   local typeTextSpacing = Utils.padRight("", longestTypeTextLength - #msgType) .. " | "
 
   return messageHeadLength + #typeText + #typeTextSpacing
@@ -133,9 +133,8 @@ function WriteLine(msgType, message)
   write(getHeadDayTime()) -- Correct padRight, added day length.
 
   -- Write message type with correct color code and correct spacing for table like look.
-  local typeText = msgType .. " "
+  local typeText = msgType
   local typeTextSpacing = Utils.padRight("", longestTypeTextLength - #msgType)
-  write(" ")
   SetTextColor(GetColorForType(msgType))
   write(msgType)
   SetTextColor(colors.lightGray)
