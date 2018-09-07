@@ -99,10 +99,9 @@ end
 --- "[XX, XX:XX]"
 -- @returns Color free string with this format: "[XX, XX:XX]".
 function getHeadDayTime()
-  return Utils.padRight("[" 
-  .. os.day() .. "|" -- Minecraft world day.
+  return Utils.padRight(os.day() .. "-" -- Minecraft world day.
   .. textutils.formatTime(os.time(), true)  -- Current time in 24H
-  .. "]", 9 + #tostring(os.day()))
+  .. " | ", 9 + #tostring(os.day()))
 end
 
 --TODO: Rewrite this with function "cleanDurtyString(coloredString)".. [CleanerCode]
@@ -116,8 +115,8 @@ function getMessageHeadLength(msgType)
 
   local messageHeadLength = #getHeadDayTime()
   -- Write message type with correct color code and correct spacing for table like look.
-  local typeText = "[" .. msgType .. "]"
-  local typeTextSpacing = Utils.padRight("", longestTypeTextLength - #msgType)
+  local typeText = msgType .. " "
+  local typeTextSpacing = Utils.padRight("", longestTypeTextLength - #msgType) + " | "
 
   return messageHeadLength + #typeText + #typeTextSpacing
 end
@@ -134,14 +133,14 @@ function WriteLine(msgType, message)
   write(getHeadDayTime()) -- Correct padRight, added day length.
 
   -- Write message type with correct color code and correct spacing for table like look.
-  local typeText = "[" .. msgType .. "]"
+  local typeText = msgType .. " "
   local typeTextSpacing = Utils.padRight("", longestTypeTextLength - #msgType)
-  write(typeTextSpacing)
-  write("[")
+  write(" ")
   SetTextColor(GetColorForType(msgType))
   write(msgType)
   SetTextColor(colors.lightGray)
-  write("]")
+  write(" | ")
+  write(typeTextSpacing)
  
   -- Message is line -> gray message color.
   if(msgType == Type.Line) then
