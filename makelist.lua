@@ -1,31 +1,34 @@
---================================================================================================--
---
---  Applied Energistics Item Exporter
---  Version 0.1
---
---  Original Author : Zacherl
---  Modifications   : 
---
---================================================================================================--
--- 
--- This program was designed to work with the mods and versions in the "FTB Infinity 1.10.1" pack.
---
---================================================================================================--
+-- Resolve relative path for "Console".
+local ConsoleLibaryPath = "I2I/Console"
+-- "Console.lua" not found -> error.
+if (not fs.exists(ConsoleLibaryPath)) then
+  error("[FATAL ERROR] Can't find libary \"" .. ConsoleLibaryPath .. "\".")
+end
+-- "Console.lua" not loadable -> error.
+if(not os.loadAPI(ConsoleLibaryPath)) then
+  error("[FATAL ERROR] Can't load libary \"" .. ConsoleLibaryPath .. "\".")
+end
 
+
+Console.ClearScreen()
+Console.PrintLine()
+
+-- Parsing arguments
 local args = {...}
 if (#args < 1) then
-  print("Current available peripherals:")
+  Console.WriteLine(Console.Type.Info, "Current available peripherals:")
   local peripherals = peripheral.getNames()
   for i = 1, #peripherals do
-    print("Type: \"" .. peripheral.getType(peripherals[i]) .. "\" attached as \"".. peripherals[i] .. "\".")
+    Console.WriteLine(Console.Type.Info, "Type: \"" .. peripheral.getType(peripherals[i]) .. "\" attached as \"".. peripherals[i] .. "\"")
   end
-  error("Usage: makelist [side]")
+  Console.WriteLine(Console.Type.Error, "Usage: makelist [side]")
+  error()
 end
 
 local inventory = peripheral.wrap(args[1])
 local items = {}
 
-print("Get items from \"".. peripheral.getType(args[1]).."\" ("..args[1]..")...");
+Console.WriteLine(Console.Type.Error, "Get items from \"".. peripheral.getType(args[1]).."\" ("..args[1]..")...")
 for i = 1, inventory.getInventorySize() do
   local stack = inventory.getStackInSlot(i)
   if (stack ~= nil) then
@@ -37,12 +40,14 @@ for i = 1, inventory.getInventorySize() do
     item.fingerprint.nbt_hash = stack.nbt_hash
     item.preserve = 0
     table.insert(items, item)
-    print("  > \""..item.name .. "\" found.")
+    Console.WriteLine(Console.Type.Export, "\""..item.name .. "\" found")
   end
 end
-print("done.")
-print("-----------------------------------------")
-print("Sorting items..")
+
+Console.WriteLine(Console.Type.Info, "done.")
+Console.PrintLine()
+Console.WriteLine(Console.Type.Info, "Sorting items...")
+
 table.sort(items, function(a, b)
   local id_a = a.fingerprint.id:lower()
   local id_b = b.fingerprint.id:lower()
@@ -59,12 +64,14 @@ table.sort(items, function(a, b)
   end
   return #id_a < #id_b
 end)
-print("done.")
-print("-----------------------------------------")
+
+Console.WriteLine(Console.Type.Info, "done.")
+Console.PrintLine()
+
 --TODO: Make filename possible as startup parameter.
 local filename = shell.resolve("items.cfg")
-print("Saving items in file \""..filename.."\"..")
-local file =io.open(filename, "w")
+Console.WriteLine(Console.Type.Info, "Saving items in file \""..filename.."\"..")
+local file = io.open(filename, "w")
 file:write(textutils.serialise(items))
 file:close()
-print("done.")
+Console.WriteLine(Console.Type.Info, "done.")
