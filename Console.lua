@@ -82,7 +82,7 @@ function WriteLine(msgType, message)
   write(Utils.padRight("[" 
      .. os.day() .. ", " -- Minecraft world day.
      .. textutils.formatTime(os.time(), true)  -- Current time in 24H
-     .. "]", 9 + #tostring(os.day())) -- Correct padRight, added day length.
+     .. "]", 9 + #tostring(os.day()))) -- Correct padRight, added day length.
 
   -- Write message type with correct color code and correct spacing for table like look.
   local typeText = "[" .. msgType .. "]"
