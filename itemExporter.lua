@@ -15,7 +15,6 @@ local interfaceSide             = "back" -- The name or side of the ME Interface
 local exportDirection           = "right" -- The export direction (target inventory) relative to the ME Interface.
 local tickInterval              = 5 -- The export program tick interval. Recommended range is between 5 and 60 seconds.
 local itemsConfigurationFile    = "items.cfg" -- The file where the item-rules are setten. 
-getOrCreateSettingsFile();
 
 -- Internal variables
 local interface = peripheral.wrap(interfaceSide)
@@ -76,28 +75,30 @@ end
 --- Gets the settings from the "I2I.cfg" file.
 --- If there is no settings file, it creates one.
 function getOrCreateSettingsFile()
-  local settingsFilePath = shell.resolve("./I2I.cfg")
+  local settingsFilePath = shell.resolve("./I2Iconfig")
 
   -- There is no settings file? -> create one.
-  if(not settings.load(settingsFilePath)) then
-    Console.WriteLine(Console.Type.Warn, "There is not \"./I2I.cfg\" file.")
-    Console.WriteLine(Console.Type.Hint, "Creating new \"./I2I.cfg\" with default settings..")
-    settings.set("interfaceSide", interfaceSide)
-    settings.set("exportDirection", exportDirection)
-    settings.set("tickInterval", tickInterval)
-    settings.set("itemsConfigurationFile", itemsConfigurationFile)
-    settings.save(settingsFilePath)
+  if (not fs.exists(settingsFilePath)) then
+    Console.WriteLine(Console.Type.Warn, "There is not \"./I2Iconfig\" file.")
+    Console.WriteLine(Console.Type.Hint, "Creating new \"./I2Iconfig\" with default settings..")
+
+    local file = io.open(settingsFilePath, "w")
+    file:write("interfaceSide = \"" .. interfaceSide .."\"\n")
+    file:write("exportDirection = \"" .. exportDirection .."\"\n")
+    file:write("tickInterval = " .. tickInterval .."\n")
+    file:write("itemsConfigurationFile = \"" .. itemsConfigurationFile .."\"\n")
+    file:close()
     Console.WriteLine(Console.Type.Hint, "done.")
   end    
   settings.Clear()
 
   -- Load settings file
-  Console.WriteLine(Console.Type.Init, "Loading settings from \"./I2I.cfg\".")
-  settings.load(settingsFilePath)
-  interfaceSide = settings.get("interfaceSide", interfaceSide)
-  exportDirection = settings.get("exportDirection", exportDirection)
-  tickInterval = settings.get("tickInterval", tickInterval)
-  itemsConfigurationFile = settings.get("itemsConfigurationFile", itemsConfigurationFile)
+  Console.WriteLine(Console.Type.Init, "Loading settings from \"./I2Iconfig\".")
+  os.loadAPI(settingsFilePath)
+  interfaceSide = I2Iconfig.interfaceSide
+  exportDirection = I2Iconfig.exportDirection
+  tickInterval = I2Iconfig.tickInterval
+  itemsConfigurationFile = I2Iconfig.itemsConfigurationFile
 
   -- Write values of settings to console
   Console.WriteLine(Console.Type.Config, "Interface side:   " .. interfaceSide)
