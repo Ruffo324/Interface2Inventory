@@ -52,7 +52,8 @@ function Init()
       longestTypeTextLength = #value
     end
   end
-
+  term.setCursorPos(1,1)
+  
   -- TODO: Check if the console height&width is constant after startup.
   -- Remember console size.
   consoleWidth, consoleHeight = term.getSize()
@@ -191,7 +192,7 @@ end
 function ClearScreen(monitor)
   monitor = monitor or term
   for i = 1, 255 do
-    CursorToNextLine(monitor)
+    CursorToNetxLine(monitor)
   end
 end
 
