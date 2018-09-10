@@ -41,12 +41,11 @@ ColorType = {
 }
 
 local longestTypeTextLength = 0
-local defaultTerm = term
 
 --- Function just flooded the console with empty prints.
---@param[opt=defaultTerm] monitor Monitor wich should be cleaned.
+--@param[opt=term] monitor Monitor wich should be cleaned.
 function ClearScreen(monitor)
-  monitor = monitor or defaultTerm
+  monitor = monitor or term
   monitor.clear()
 end
 
@@ -58,16 +57,16 @@ function Init()
       longestTypeTextLength = #value
     end
   end
-  defaultTerm.setCursorPos(1,1)
-  defaultTerm.setCursorBlink(true) -- debug
+  term.setCursorPos(1,1)
+  term.setCursorBlink(true) -- debug
 
 
 end
 
 --- Sets the cursor to the next line
--- @param[opt=defaultTerm] monitor Monitor on wich the cursor should be setten.
+-- @param[opt=term] monitor Monitor on wich the cursor should be setten.
 function CursorToNextLine(monitor) 
-  monitor = monitor or defaultTerm
+  monitor = monitor or term
   X, Y = monitor.getCursorPos()
 
   -- Scroll if monitor height max is reached.
@@ -88,13 +87,12 @@ function SetDefaultForTerm(monitor)
 
   -- Monitor is not the terminal -> set textscale to 0.5. 
   if(monitor ~= term) then
-    WriteLine(Type.Hint, "Using a monitor for term output.", term)
+    WriteLine(Type.Hint, "Redirecting output to a monitor.", term)
     monitor.setTextScale(0.5)
 
-    print(textutils.serialize(monitor)) -- debug
+    term.redirect(monitor)
   end
 
-  defaultTerm = monitor
   Init()
 end
 
@@ -133,9 +131,9 @@ function GetColorForType(msgType)
 end
 
 --- Sets the console text color to the given colorStr.
--- @param[opt=defaultTerm] monitor Monitor that color should be changed.
+-- @param[opt=term] monitor Monitor that color should be changed.
 function SetTextColor(colorStr, monitor)
-  monitor = monitor or defaultTerm
+  monitor = monitor or term
   monitor.setTextColor(colorStr)
 end
 
@@ -167,9 +165,9 @@ end
 --- Writes a new line to the console output. Formated with the Type and time.
 -- @param msgType {Console.Type} The type of the message.
 -- @param message {string} The output string.
--- @param[opt=defaultTerm] monitor Outputmonitor for the message.
+-- @param[opt=term] monitor Outputmonitor for the message.
 function WriteLine(msgType, message, monitor)
-  monitor = monitor or defaultTerm
+  monitor = monitor or term
 
   -- Check msgType.
   IsValidType(msgType)
@@ -205,9 +203,9 @@ end
 
 --- Prints a line with length perfect length to cut the console. 
 -- @param[opt="-"] printChr Char for the printed line.
--- @param[opt=defaultTerm] monitor Outputmonitor for the message.
+-- @param[opt=term] monitor Outputmonitor for the message.
 function PrintLine(printChr, monitor)
-  monitor = monitor or defaultTerm
+  monitor = monitor or term
   printChr = printChr or "-"
   -- printChr is more than one char -> error.
   if(#printChr ~= 1) then
