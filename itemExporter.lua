@@ -87,9 +87,11 @@ function drawFetchingItemsToMonitor()
     return
   end
 
+  local outMonitor = peripheral.wrap(monitorFetchingItems)
+
   -- Loop throug items.
   for key, value in pairs(exports) do
-    Console.WriteLine(Console.Type.Debug, key .. " - " .. value)
+    Console.WriteLine(Console.Type.Debug, key .. " - " .. value, outMonitor)
   end
 end
 
