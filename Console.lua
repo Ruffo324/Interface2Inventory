@@ -2,7 +2,7 @@
 -- User for console output.
 
 -- Path for "Console.lua".
---local UtilsLibaryPath = shell.resolve("Utils.lua")  -- TODO: Rethink this sometimes. http://computercraft.info/wiki/Os.loadAPI
+
 local UtilsLibaryPath = "I2I/Utils"
 -- "Utils.lua" not found -> error.
 if (not fs.exists(UtilsLibaryPath)) then
@@ -42,8 +42,6 @@ ColorType = {
 
 local longestTypeTextLength = 0
 local defaultTerm = term
-local consoleWidth = 0 -- Automatic setting in Init()
-local consoleHeight = 0 -- Automatic setting in Init()
 
 --- Function just flooded the console with empty prints.
 --@param[opt=defaultTerm] monitor Monitor wich should be cleaned.
@@ -63,9 +61,7 @@ function Init()
   defaultTerm.setCursorPos(1,1)
   defaultTerm.setCursorBlink(true) -- debug
 
-  -- TODO: Check if the console height&width is constant after startup.
-  -- Remember console size.
-  consoleWidth, consoleHeight = defaultTerm.getSize()
+
 end
 
 --- Sets the cursor to the next line
@@ -94,6 +90,8 @@ function SetDefaultForTerm(monitor)
   if(monitor ~= term) then
     WriteLine(Type.Hint, "Using a monitor for term output.", term)
     monitor.setTextScale(0.5)
+
+    print(textutils.serialize(monitor)) -- debug
   end
 
   defaultTerm = monitor
@@ -209,12 +207,14 @@ end
 -- @param[opt="-"] printChr Char for the printed line.
 -- @param[opt=defaultTerm] monitor Outputmonitor for the message.
 function PrintLine(printChr, monitor)
+  monitor = monitor or defaultTerm
   printChr = printChr or "-"
   -- printChr is more than one char -> error.
   if(#printChr ~= 1) then
     error("[FATAL ERROR][CONSOLE]The parameter \"printChr\" must be a string with a length of exactly one.")
   end
 
+  local consoleWidth, consoleHeight = monitor.getSize()
   WriteLine(Type.Line, Utils.padRight("", consoleWidth - getMessageHeadLength(Type.Line), printChr), monitor)
 end
 
