@@ -12,7 +12,7 @@ if(shell.resolve("./") ~= "I2I") then
   if(not fs.exists("/I2I")) then
     fs.makeDir("/I2I")
   end
-  
+
   -- Moving to "/I2I".
   term.setTextColor(colors.orange)
   print("Moving to \"/I2I\".")
@@ -30,9 +30,9 @@ shell.run("delete", "installer")
 term.setTextColor(colors.green)
 print("Downloading files..")
 term.setTextColor(colors.white)
-shell.run("../openp/github", "get", "Ruffo324/Interface2Inventory/master/installer.lua","I2I/installer")
-shell.run("../openp/github", "get", "Ruffo324/Interface2Inventory/master/updater.lua","I2I/updater")
-shell.run("../openp/github", "get", "Ruffo324/Interface2Inventory/master/Console.lua","I2I/Console")
-shell.run("../openp/github", "get", "Ruffo324/Interface2Inventory/master/Utils.lua","I2I/Utils")
-shell.run("../openp/github", "get", "Ruffo324/Interface2Inventory/master/makelist.lua","I2I/makelist")
-shell.run("../openp/github", "get", "Ruffo324/Interface2Inventory/master/itemExporter.lua","I2I/itemExporter")
+shell.run("../openp/github", "get", "Ruffo324/Interface2Inventory/master/installer.lua","/I2I/installer")
+shell.run("../openp/github", "get", "Ruffo324/Interface2Inventory/master/updater.lua","/I2I/updater")
+shell.run("../openp/github", "get", "Ruffo324/Interface2Inventory/master/Console.lua","/I2I/Console")
+shell.run("../openp/github", "get", "Ruffo324/Interface2Inventory/master/Utils.lua","/I2I/Utils")
+shell.run("../openp/github", "get", "Ruffo324/Interface2Inventory/master/makelist.lua","/I2I/makelist")
+shell.run("../openp/github", "get", "Ruffo324/Interface2Inventory/master/itemExporter.lua","/I2I/itemExporter")
