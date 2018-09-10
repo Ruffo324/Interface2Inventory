@@ -57,7 +57,6 @@ function Init()
       longestTypeTextLength = #value
     end
   end
-  ClearScreen(term)
   term.setCursorPos(1,1)
   term.setCursorBlink(true) -- debug
 end
@@ -86,6 +85,7 @@ function SetDefaultForTerm(monitor)
   -- Monitor is not the terminal -> set textscale to 0.5. 
   if(monitor ~= term) then
     WriteLine(Type.Hint, "Redirecting output to a monitor.", term)
+    ClearScreen(monitor)
     monitor.setTextScale(0.5)
     term.redirect(monitor)
   end
