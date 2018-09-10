@@ -73,6 +73,12 @@ end
 function CursorToNextLine(monitor) 
   monitor = monitor or defaultTerm
   X, Y = monitor.getCursorPos()
+
+  -- Scroll if monitor height max is reached.
+  _, mHeight = monitor.getSize()
+  if((Y+1) >= mHeight) then
+    monitor.scroll(1)
+  end
   monitor.setCursorPos(1, Y+1)
 end
 
@@ -83,9 +89,10 @@ function SetDefaultForTerm(monitor)
 
   -- Monitor is not the terminal -> set textscale to 0.5. 
   if(monitor ~= term) then
-    WriteLine(Type.Hint, "Using a monitor for term output.")
+    WriteLine(Type.Hint, "Using a monitor for term output.", term)
     monitor.setTextScale(0.5)
   end
+
   defaultTerm = monitor
   Init()
 end
