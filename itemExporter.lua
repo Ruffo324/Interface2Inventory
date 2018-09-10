@@ -130,7 +130,7 @@ function GetOrCreateSettingsFile()
 
   -- Check if output is on the computer
   -- TODO: Rethink.
-  if(monitorOutput ~= "none") then
+  if(monitorOutput ~= "none" and monitorOutput ~= nil) then
     monitorOuputPeripheral = peripheral.wrap(monitorOutput)
     Console.SetDefaultForTerm(monitorOutput)
     Console.WriteLine(Console.Type.Hint, "Using monitor \"" .. monitorOutput .. "\".")
