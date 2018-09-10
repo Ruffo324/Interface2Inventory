@@ -20,6 +20,3 @@ shell.run("../openp/github", "get", "Ruffo324/Interface2Inventory/master/Console
 shell.run("../openp/github", "get", "Ruffo324/Interface2Inventory/master/Utils.lua","Utils")
 shell.run("../openp/github", "get", "Ruffo324/Interface2Inventory/master/makelist.lua","makelist")
 shell.run("../openp/github", "get", "Ruffo324/Interface2Inventory/master/itemExporter.lua","itemExporter")
-
-
-../openp/github get Ruffo324/Interface2Inventory/master/installer.lua
