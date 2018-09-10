@@ -46,6 +46,7 @@ local longestTypeTextLength = 0
 --@param[opt=term] monitor Monitor wich should be cleaned.
 function ClearScreen(monitor)
   monitor = monitor or term
+  monitor.setCursorPos(1,1)
   monitor.clear()
 end
 
