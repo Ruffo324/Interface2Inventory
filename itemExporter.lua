@@ -89,9 +89,11 @@ function drawFetchingItemsToMonitor()
 
   local outMonitor = peripheral.wrap(monitorFetchingItems)
 
+  outMonitor.setTextScale(0.5)
+
   -- Loop throug items.
-  for key, value in pairs(exports) do
-    Console.WriteLine(Console.Type.Debug, key .. " - " .. value, outMonitor)
+  for index, item in pairs(exports) do
+    Console.WriteLine(Console.Type.Debug, item.fingerprint.id .. " - " .. item.preserve, outMonitor)
   end
 end
 
