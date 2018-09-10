@@ -78,8 +78,8 @@ function CursorToNextLine(monitor)
   _, mHeight = monitor.getSize()
   if((Y+1) >= mHeight) then
     monitor.scroll(1)
-    print("scrolled") -- debug
     monitor.setCursorPos(1, Y)
+    print("scrolled") -- debug
   else
     monitor.setCursorPos(1, Y+1)
   end
