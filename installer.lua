@@ -1,17 +1,18 @@
 -- Script for installing I2I
 -- Not in I2I directory -> error.
 if(shell.resolve("./") ~= "I2I") then
-  -- Write error like message for user
+  -- Write error like message for user.
   term.setTextColor(colors.red)
   print("This script must runned from \"/I2I/\". Creating and changing to \"/I2I/\".")
 
+  -- Create folder "/I2I" if it not exist.
   term.setTextColor(colors.orange)
   print("Checking existing of \"/I2I\".")
   term.setTextColor(colors.white)
   if(not fs.exists("/I2I")) then
     fs.makeDir("/I2I")
   end
-
+  -- Moving to "/I2I".
   term.setTextColor(colors.orange)
   print("Moving to \"/I2I\".")
   term.setTextColor(colors.white)
