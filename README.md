@@ -1,5 +1,5 @@
 # Important
-I am not the official author of this script. 
+I'm (Ruffo324) not the official author of this script. 
 The scripts **"makelist"** and **"I2I"** are based on this [Source](http://www.computercraft.info/forums2/index.php?/topic/24612-applied-energistics-item-exporter/). So the idea, and the base script comes from the author **[zacherl1990](http://www.computercraft.info/forums2/index.php?/user/18374-zacherl1990/)**.
 
 The script is written for the [**To The Core**](https://www.technicpack.net/modpack/to-the-core-official.1293279) *Technic Launcher* modpack.
@@ -10,7 +10,7 @@ Create a new folder in the root
 ```shell
 mkdir I2I
 cd I2I
-/openp/github get Ruffo324/Interface2Inventory/master/installer.lua installer
+/openp/github get ToTheCore/Interface2Inventory/master/installer.lua installer
 ```
 
 # Update
