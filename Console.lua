@@ -83,6 +83,7 @@ function SetDefaultForTerm(monitor)
 
   -- Monitor is not the terminal -> set textscale to 0.5. 
   if(monitor ~= term) then
+    WriteLine(Type.Hint, "Using a monitor for term output.")
     monitor.setTextScale(0.5)
   end
   defaultTerm = monitor
