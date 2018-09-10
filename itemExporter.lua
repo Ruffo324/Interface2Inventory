@@ -16,7 +16,12 @@ local interfaceSide             = "back"  -- The name or side of the ME Interfac
 local exportDirection           = "east"  -- The export direction (target inventory) relative to the ME Interface.
 local tickInterval              = 5  -- The export program tick interval. Recommended range is between 5 and 60 seconds.
 local itemsConfigurationFile    = "./items.cfg" -- The file where the item-rules are setten. 
-local monitorFetchingItems      = "none" -- Monitor for the overview which items are exported. 
+local monitorFetchingItems      = "none" -- Monitor for the overview which items are exported.
+local monitorOutput             = "none" -- Monitor for the complete console output.
+
+-- Script variables. Don't change them.
+local monitorOuputPeripheral = term
+
 
 --- Writes the default settings to the given file.
 -- @param filePath The settings file path.
@@ -27,6 +32,7 @@ function WriteDefaultSettings(filePath)
   file:write("tickInterval = " .. tickInterval .." -- The export program tick interval. Recommended range is between 5 and 60 seconds.\n")
   file:write("itemsConfigurationFile = \"" .. itemsConfigurationFile .."\" -- The file where the item-rules are setten. \n")
   file:write("monitorFetchingItems = \"" .. monitorFetchingItems .."\" -- Monitor for the overview which items are exported. \n")
+  file:write("monitorOutput = \"" .. monitorOutput .."\" -- Monitor for the complete console output. \n")
   file:close()
 end
 
@@ -120,13 +126,23 @@ function GetOrCreateSettingsFile()
   tickInterval = I2Iconfig.tickInterval
   itemsConfigurationFile = I2Iconfig.itemsConfigurationFile
   monitorFetchingItems = I2Iconfig.monitorFetchingItems
+  monitorOutput = I2Iconfig.monitorOutput
+
+  -- Check if output is on the computer
+  -- TODO: Rethink.
+  if(monitorOutput ~= "none") then
+    monitorOuputPeripheral = peripheral.wrap(monitorOutput)
+    Console.SetDefaultForTerm(monitorOutput)
+    Console.WriteLine(Console.Type.Hint, "Using monitor \"" .. monitorOutput .. "\".")
+  end
 
   -- Write values of settings to console
   Console.WriteLine(Console.Type.Config, "Interface side:   " .. interfaceSide)
   Console.WriteLine(Console.Type.Config, "Export direction: " .. exportDirection)
   Console.WriteLine(Console.Type.Config, "Tick interval:    " .. tickInterval)
   Console.WriteLine(Console.Type.Config, "Items config:     " .. itemsConfigurationFile)
-  Console.WriteLine(Console.Type.Config, "Fetching items    " .. monitorFetchingItems)
+  Console.WriteLine(Console.Type.Config, "Fetching items:   " .. monitorFetchingItems)
+  Console.WriteLine(Console.Type.Config, "Output monitor    " .. monitorOutput)
 end
 
 --- Does all the things that are needed on Server startup.

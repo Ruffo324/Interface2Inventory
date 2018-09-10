@@ -41,13 +41,14 @@ ColorType = {
 }
 
 local longestTypeTextLength = 0
+local defaultTerm = term
 local consoleWidth = 0 -- Automatic setting in Init()
 local consoleHeight = 0 -- Automatic setting in Init()
 
 --- Function just flooded the console with empty prints.
---@param[opt=term] monitor Monitor wich should be cleaned.
+--@param[opt=defaultTerm] monitor Monitor wich should be cleaned.
 function ClearScreen(monitor)
-  monitor = monitor or term
+  monitor = monitor or defaultTerm
   monitor.clear()
 end
 
@@ -59,22 +60,29 @@ function Init()
       longestTypeTextLength = #value
     end
   end
-  term.setCursorPos(1,1)
-  term.setCursorBlink(true) -- debug
+  defaultTerm.setCursorPos(1,1)
+  defaultTerm.setCursorBlink(true) -- debug
 
   -- TODO: Check if the console height&width is constant after startup.
   -- Remember console size.
-  consoleWidth, consoleHeight = term.getSize()
+  consoleWidth, consoleHeight = defaultTerm.getSize()
 end
 
 --- Sets the cursor to the next line
--- @param[opt=term] monitor Monitor on wich the cursor should be setten.
+-- @param[opt=defaultTerm] monitor Monitor on wich the cursor should be setten.
 function CursorToNextLine(monitor) 
-  monitor = monitor or term
+  monitor = monitor or defaultTerm
   X, Y = monitor.getCursorPos()
   monitor.setCursorPos(1, Y+1)
 end
 
+--- Sets the default output for the console.
+-- @param[opt=tern] monitor Monitor wich should be the default.
+function SetDefaultForTerm(monitor)
+  monitor = monitor or term
+  defaultTerm = monitor
+  Init()
+end
 
 --- Checks if the given message type is a existing Type.
 -- @error Throws error if message type is not a valid Type.
@@ -111,9 +119,9 @@ function GetColorForType(msgType)
 end
 
 --- Sets the console text color to the given colorStr.
--- @param[opt=term] monitor Monitor that color should be changed.
+-- @param[opt=defaultTerm] monitor Monitor that color should be changed.
 function SetTextColor(colorStr, monitor)
-  monitor = monitor or term
+  monitor = monitor or defaultTerm
   monitor.setTextColor(colorStr)
 end
 
@@ -145,9 +153,9 @@ end
 --- Writes a new line to the console output. Formated with the Type and time.
 -- @param msgType {Console.Type} The type of the message.
 -- @param message {string} The output string.
--- @param[opt=term] monitor Outputmonitor for the message.
+-- @param[opt=defaultTerm] monitor Outputmonitor for the message.
 function WriteLine(msgType, message, monitor)
-  monitor = monitor or term
+  monitor = monitor or defaultTerm
 
   -- Check msgType.
   IsValidType(msgType)
@@ -183,7 +191,7 @@ end
 
 --- Prints a line with length perfect length to cut the console. 
 -- @param[opt="-"] printChr Char for the printed line.
--- @param[opt=term] monitor Outputmonitor for the message.
+-- @param[opt=defaultTerm] monitor Outputmonitor for the message.
 function PrintLine(printChr, monitor)
   printChr = printChr or "-"
   -- printChr is more than one char -> error.
