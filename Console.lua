@@ -44,7 +44,6 @@ local longestTypeTextLength = 0
 local consoleWidth = 0 -- Automatic setting in Init()
 local consoleHeight = 0 -- Automatic setting in Init()
 
---- Workaround for os.execute("clear")
 --- Function just flooded the console with empty prints.
 --@param[opt=term] monitor Monitor wich should be cleaned.
 function ClearScreen(monitor)
