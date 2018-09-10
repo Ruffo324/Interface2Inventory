@@ -49,10 +49,10 @@ local consoleHeight = 0 -- Automatic setting in Init()
 --@param[opt=term] monitor Monitor wich should be cleaned.
 function ClearScreen(monitor)
   monitor = monitor or term
-  if(monitor == term) then
-    os.run("clear")
-  else
+  if(monitor ~= term) then
     monitor.clear()
+  else
+    os.run("clear")
   end
   --for i = 1, 255 do
   --  CursorToNetxLine(monitor)
