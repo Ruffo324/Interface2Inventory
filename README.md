@@ -6,29 +6,36 @@ The script is written for the [**To The Core**](https://www.technicpack.net/modp
 
 
 # Installation
+Create a new folder in the root 
 ```shell
 mkdir I2I
 cd I2I
-../openp/github get Ruffo324/Interface2Inventory/master/Console.lua Console
-../openp/github get Ruffo324/Interface2Inventory/master/Utils.lua Utils
-../openp/github get Ruffo324/Interface2Inventory/master/makelist.lua makelist
-../openp/github get Ruffo324/Interface2Inventory/master/itemExporter.lua itemExporter
+../openp/github get Ruffo324/Interface2Inventory/master/installer.lua installer
 ```
 
 # Update
 ```shell
-cd /I2I 
-
-delete Console
-delete Utils
-delete makelist
-delete itemExporter
-
-../openp/github get Ruffo324/Interface2Inventory/master/Console.lua Console
-../openp/github get Ruffo324/Interface2Inventory/master/Utils.lua Utils
-../openp/github get Ruffo324/Interface2Inventory/master/makelist.lua makelist
-../openp/github get Ruffo324/Interface2Inventory/master/itemExporter.lua itemExporter
+cd /I2I
+updater
 ```
+or
+```shell
+I2I/updater
+```
+
+
+# Add to autostart
+Create a new file in root directory.
+```shell
+edit startup
+```
+
+Add the following to the startupscript.
+```shell
+shell.run("I2I/itemexporter")
+```
+That's all. 
+
 
 
 # How to use
