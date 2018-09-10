@@ -49,9 +49,6 @@ local consoleHeight = 0 -- Automatic setting in Init()
 function ClearScreen(monitor)
   monitor = monitor or term
   monitor.clear()
-  --for i = 1, 255 do
-  --  CursorToNetxLine(monitor)
-  --end
 end
 
 --- Initalize the console api.
@@ -109,7 +106,7 @@ function GetColorForType(msgType)
   end
 
  -- There is no color for the given type -> error.
- error("[FATAL ERROR][CONSOLE] The type \"" .. msgType.. "\" has no \"Console.ColorType\".")
+ error("[FATAL ERROR][CONSOLE] The type \"" .. msgType .. "\" has no \"Console.ColorType\".")
 end
 
 --- Sets the console text color to the given colorStr.
