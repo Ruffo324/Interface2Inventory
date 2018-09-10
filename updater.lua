@@ -6,9 +6,9 @@ end
 
 
 -- Delete old files.
-setTextColor(colors.green)
+term.setTextColor(colors.green)
 print("Deleting files..")
-setTextColor(colors.white)
+term.setTextColor(colors.white)
 shell.run("delete", "Console")
 shell.run("delete", "Utils")
 shell.run("delete", "makelist")
@@ -17,5 +17,5 @@ shell.run("delete", "updater")
 
 -- Runn installer to get all new files.
 shell.run("installer")
-setTextColor(colors.green)
+term.setTextColor(colors.green)
 print("Done.")
