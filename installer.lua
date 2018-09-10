@@ -12,6 +12,7 @@ if(shell.resolve("./") ~= "I2I") then
   if(not fs.exists("/I2I")) then
     fs.makeDir("/I2I")
   end
+  
   -- Moving to "/I2I".
   term.setTextColor(colors.orange)
   print("Moving to \"/I2I\".")
