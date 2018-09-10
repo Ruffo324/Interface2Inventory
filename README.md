@@ -10,7 +10,7 @@ Create a new folder in the root
 ```shell
 mkdir I2I
 cd I2I
-../openp/github get Ruffo324/Interface2Inventory/master/installer.lua installer
+/openp/github get Ruffo324/Interface2Inventory/master/installer.lua installer
 ```
 
 # Update
