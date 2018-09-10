@@ -44,6 +44,21 @@ local longestTypeTextLength = 0
 local consoleWidth = 0 -- Automatic setting in Init()
 local consoleHeight = 0 -- Automatic setting in Init()
 
+--- Workaround for os.execute("clear")
+--- Function just flooded the console with empty prints.
+--@param[opt=term] monitor Monitor wich should be cleaned.
+function ClearScreen(monitor)
+  monitor = monitor or term
+  if(monitor == term) then
+    os.run("clear")
+  else
+    monitor.clear()
+  end
+  --for i = 1, 255 do
+  --  CursorToNetxLine(monitor)
+  --end
+end
+
 --- Initalize the console api.
 --- Gets then length of the longest type text.
 function Init()
@@ -53,7 +68,7 @@ function Init()
     end
   end
   term.setCursorPos(1,1)
-  
+
   -- TODO: Check if the console height&width is constant after startup.
   -- Remember console size.
   consoleWidth, consoleHeight = term.getSize()
@@ -184,16 +199,6 @@ function PrintLine(printChr, monitor)
   end
 
   WriteLine(Type.Line, Utils.padRight("", consoleWidth - getMessageHeadLength(Type.Line), printChr), monitor)
-end
-
---- Workaround for os.execute("clear")
---- Function just flooded the console with empty prints.
---@param[opt=term] monitor Monitor wich should be cleaned.
-function ClearScreen(monitor)
-  monitor = monitor or term
-  for i = 1, 255 do
-    CursorToNetxLine(monitor)
-  end
 end
 
 -- Call of init function
