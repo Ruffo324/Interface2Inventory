@@ -80,6 +80,11 @@ end
 -- @param[opt=tern] monitor Monitor wich should be the default.
 function SetDefaultForTerm(monitor)
   monitor = monitor or term
+
+  -- Monitor is not the terminal -> set textscale to 0.5. 
+  if(monitor ~= term) then
+    monitor.setTextScale(0.5)
+  end
   defaultTerm = monitor
   Init()
 end
