@@ -127,7 +127,7 @@ end
 --- Also giving advanced console output.
 local function ServerStartup()
   -- Clear console and write startup things.
-  Console.ClearScreen()
+  --Console.ClearScreen()
   Console.PrintLine("-")
   GetOrCreateSettingsFile()
   Console.PrintLine("-")

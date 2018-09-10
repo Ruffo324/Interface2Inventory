@@ -58,6 +58,15 @@ function Init()
   consoleWidth, consoleHeight = term.getSize()
 end
 
+--- Sets the cursor to the next line
+-- @param[opt=term] monitor Monitor on wich the cursor should be setten.
+function CursorToNextLine(monitor) 
+  monitor = monitor or term
+  X, Y = monitor.getCursorPos()
+  monitor.setCursorPos(1, Y+1)
+end
+
+
 --- Checks if the given message type is a existing Type.
 -- @error Throws error if message type is not a valid Type.
 function IsValidType(msgType)
@@ -185,16 +194,6 @@ function ClearScreen(monitor)
     CursorToNextLine(monitor)
   end
 end
-
---- Sets the cursor to the next line
--- @param[opt=term] monitor Monitor on wich the cursor should be setten.
-function CursorToNextLine(monitor)
-  monitor = monitor or term
-  X, Y = monitor.getCursorPos()
-  monitor.setCursorPos(1, Y+1)
-end
-
-
 
 -- Call of init function
 Init()
