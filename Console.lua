@@ -51,8 +51,10 @@ function ClearScreen(monitor)
   monitor = monitor or term
   if(monitor == term) then
     shell.run("clear")
+    print("shell.run.clear.runned")
   else
     monitor.clear()
+    print("monitor.clear.runned")
   end
   --for i = 1, 255 do
   --  CursorToNetxLine(monitor)
