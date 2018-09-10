@@ -76,7 +76,7 @@ function CursorToNextLine(monitor)
 
   -- Scroll if monitor height max is reached.
   _, mHeight = monitor.getSize()
-  if((Y+1) >= mHeight) then
+  if(Y >= mHeight) then
     monitor.scroll(1)
     monitor.setCursorPos(1, Y + 1)
     print("scrolled" .. mHeight .. "|" .. Y) -- debug
