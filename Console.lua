@@ -60,6 +60,7 @@ function Init()
     end
   end
   term.setCursorPos(1,1)
+  term.setCursorBlink(true) -- debug
 
   -- TODO: Check if the console height&width is constant after startup.
   -- Remember console size.
