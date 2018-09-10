@@ -54,7 +54,7 @@ local function mainTick()
 
     itemCount = itemCount - item.preserve
     if (itemCount > 0) then
-      Console.WriteLine(Console.Type.Export, fingerprint.id .. "[".. itemCount .. "/" .. item.preserve .. "]")
+      Console.WriteLine(Console.Type.Export, fingerprint.id .. "[".. itemCount  .. "]")
       while (itemCount > 0) do
         -- Prevent "Too long without yielding" error
         local loopTimerId = os.startTimer(0.1) 
@@ -115,12 +115,14 @@ function GetOrCreateSettingsFile()
   exportDirection = I2Iconfig.exportDirection
   tickInterval = I2Iconfig.tickInterval
   itemsConfigurationFile = I2Iconfig.itemsConfigurationFile
+  monitorFetchingItems = I2Iconfig.monitorFetchingItems
 
   -- Write values of settings to console
   Console.WriteLine(Console.Type.Config, "Interface side:   " .. interfaceSide)
   Console.WriteLine(Console.Type.Config, "Export direction: " .. exportDirection)
   Console.WriteLine(Console.Type.Config, "Tick interval:    " .. tickInterval)
   Console.WriteLine(Console.Type.Config, "Items config:     " .. itemsConfigurationFile)
+  Console.WriteLine(Console.Type.Config, "Fetching items    " .. monitorFetchingItems)
 end
 
 --- Does all the things that are needed on Server startup.
