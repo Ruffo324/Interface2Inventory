@@ -128,6 +128,7 @@ function GetOrCreateSettingsFile()
   monitorFetchingItems = I2Iconfig.monitorFetchingItems
   if (I2Iconfig.monitorOutput ~= nil) then  
     monitorOutput = I2Iconfig.monitorOutput
+  end
 
   -- Check if output is on the computer
   -- TODO: Rethink.
