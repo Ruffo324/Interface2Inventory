@@ -52,7 +52,7 @@ function ClearScreen(monitor)
   if(monitor ~= term) then
     monitor.clear()
   else
-    os.run("clear")
+    shell.run("clear")
   end
   --for i = 1, 255 do
   --  CursorToNetxLine(monitor)
