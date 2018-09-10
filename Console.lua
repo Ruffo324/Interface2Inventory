@@ -59,8 +59,6 @@ function Init()
   end
   term.setCursorPos(1,1)
   term.setCursorBlink(true) -- debug
-
-
 end
 
 --- Sets the cursor to the next line
@@ -74,7 +72,6 @@ function CursorToNextLine(monitor)
   if(Y >= mHeight) then
     monitor.scroll(1)
     monitor.setCursorPos(1, Y)
-    print("scrolled" .. mHeight .. "|" .. Y .. "|" .. X) -- debug
   else
     monitor.setCursorPos(1, Y+1)
   end
