@@ -134,7 +134,7 @@ function GetOrCreateSettingsFile()
   -- TODO: Rethink.
   if(monitorOutput ~= "none") then
     monitorOuputPeripheral = peripheral.wrap(monitorOutput)
-    Console.SetDefaultForTerm(monitorOutput)
+    Console.SetDefaultForTerm(monitorOuputPeripheral)
     Console.WriteLine(Console.Type.Hint, "Using monitor \"" .. monitorOutput .. "\".")
   end
 
