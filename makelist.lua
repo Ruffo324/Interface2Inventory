@@ -25,8 +25,6 @@ if (#args < 1) then
   error()
 end
 
-Console.WriteLine(Console.Type.Info, "asd")
-
 local inventory = peripheral.wrap(args[1])
 local items = {}
 

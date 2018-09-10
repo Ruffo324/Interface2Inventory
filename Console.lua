@@ -191,7 +191,7 @@ end
 function CursorToNextLine(monitor)
   monitor = monitor or term
   X, Y = monitor.getCursorPos()
-  monitor.setCursorPos(1, Y + 1)
+  monitor.setCursorPos(1, Y+1)
 end
 
 
