@@ -126,11 +126,12 @@ function GetOrCreateSettingsFile()
   tickInterval = I2Iconfig.tickInterval
   itemsConfigurationFile = I2Iconfig.itemsConfigurationFile
   monitorFetchingItems = I2Iconfig.monitorFetchingItems
-  monitorOutput = I2Iconfig.monitorOutput
+  if (I2Iconfig.monitorOutput ~= nil) then  
+    monitorOutput = I2Iconfig.monitorOutput
 
   -- Check if output is on the computer
   -- TODO: Rethink.
-  if(monitorOutput ~= "none" and monitorOutput ~= nil) then
+  if(monitorOutput ~= "none") then
     monitorOuputPeripheral = peripheral.wrap(monitorOutput)
     Console.SetDefaultForTerm(monitorOutput)
     Console.WriteLine(Console.Type.Hint, "Using monitor \"" .. monitorOutput .. "\".")
