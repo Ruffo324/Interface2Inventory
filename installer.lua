@@ -1,0 +1,15 @@
+-- Script for installing I2I
+setTextColor(colors.green)
+print("Try removing old installer")
+setTextColor(colors.white)
+shell.run("delete", "installer")
+
+setTextColor(colors.green)
+print("Downloading files..")
+setTextColor(colors.white)
+shell.run("../openp/github", "get", "Ruffo324/Interface2Inventory/master/update.lua","update")
+shell.run("../openp/github", "get", "Ruffo324/Interface2Inventory/master/installer.lua","installer")
+shell.run("../openp/github", "get", "Ruffo324/Interface2Inventory/master/Console.lua","Console")
+shell.run("../openp/github", "get", "Ruffo324/Interface2Inventory/master/Utils.lua","Utils")
+shell.run("../openp/github", "get", "Ruffo324/Interface2Inventory/master/makelist.lua","makelist")
+shell.run("../openp/github", "get", "Ruffo324/Interface2Inventory/master/itemExporter.lua","itemExporter")
