@@ -86,7 +86,7 @@ function drawFetchingItemsToMonitor()
     Console.WriteLine(Console.Type.Warn, "No monitor set for the item overview.")
     return
   end
-
+--asd
   local outMonitor = peripheral.wrap(monitorFetchingItems)
 
   outMonitor.setTextScale(0.5)
