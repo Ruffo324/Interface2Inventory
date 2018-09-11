@@ -7,6 +7,6 @@ shell.run("delete", "/Interface2Inventory/itemExporter")
 shell.run("delete", "/Interface2Inventory/updater")
 
 -- Runn installer to get all new files.
-shell.run("installer")
+shell.run("/Interface2Inventory/installer")
 term.setTextColor(colors.green)
 print("Done.")
