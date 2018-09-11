@@ -1,5 +1,5 @@
 -- Resolve relative path for "Console".
-local ConsoleLibaryPath = "I2I/Console"
+local ConsoleLibaryPath = "/Utils/Console"
 -- "Console.lua" not found -> error.
 if (not fs.exists(ConsoleLibaryPath)) then
   error("[FATAL ERROR] Can't find libary \"" .. ConsoleLibaryPath .. "\".")

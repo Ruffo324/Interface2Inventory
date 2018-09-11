@@ -1,38 +1,20 @@
--- Script for installing I2I
--- Not in I2I directory -> error.
-if(shell.resolve("./") ~= "I2I") then
-  -- Write error like message for user.
-  term.setTextColor(colors.red)
-  print("This script must runned from \"/I2I/\". Creating and changing to \"/I2I/\".")
+--- Script for installing Interface2Inventory.
+--- Don't remove this script, or change anything in here.
 
-  -- Create folder "/I2I" if it not exist.
-  term.setTextColor(colors.orange)
-  print("Checking existing of \"/I2I\".")
-  term.setTextColor(colors.white)
-  if(not fs.exists("/I2I")) then
-    fs.makeDir("/I2I")
-  end
+local thisRepoName = "Interface2Inventory"
 
-  -- Moving to "/I2I".
-  term.setTextColor(colors.orange)
-  print("Moving to \"/I2I\".")
-  term.setTextColor(colors.white)
-  shell.run("cd", "/I2I")
-end
-
--- Try removing the old I2I installer.
+-- Try removing the old Interface2Inventory installer.
 term.setTextColor(colors.green)
 print("Try removing old installer")
-term.setTextColor(colors.white)
+term.setTextColor(colors.gray)
 shell.run("delete", "installer")
 
--- Download new files.
+-- Download Interface2Inventory files.
 term.setTextColor(colors.green)
-print("Downloading files..")
-term.setTextColor(colors.white)
-shell.run("/openp/github", "get", "ToTheCore/Interface2Inventory/master/installer.lua","/I2I/installer")
-shell.run("/openp/github", "get", "ToTheCore/Interface2Inventory/master/updater.lua","/I2I/updater")
-shell.run("/openp/github", "get", "ToTheCore/Interface2Inventory/master/Console.lua","/I2I/Console")
-shell.run("/openp/github", "get", "ToTheCore/Interface2Inventory/master/Utils.lua","/I2I/Utils")
-shell.run("/openp/github", "get", "ToTheCore/Interface2Inventory/master/makelist.lua","/I2I/makelist")
-shell.run("/openp/github", "get", "ToTheCore/Interface2Inventory/master/itemExporter.lua","/I2I/itemExporter")
+print("Downloading \"" .. thisRepoName .. "\" files..")
+term.setTextColor(colors.gray)
+shell.run("/openp/github", "get", "ToTheCore/" .. thisRepoName .. "/master/installer.lua","/" .. thisRepoName .. "/installer")
+shell.run("/openp/github", "get", "ToTheCore/" .. thisRepoName .. "/master/updater.lua","/" .. thisRepoName .. "/updater")
+shell.run("/openp/github", "get", "ToTheCore/" .. thisRepoName .. "/master/makelist.a","/" .. thisRepoName .. "/makelist")
+shell.run("/openp/github", "get", "ToTheCore/" .. thisRepoName .. "/master/itemExporter.lua","/" .. thisRepoName .. "/itemExporter")
+

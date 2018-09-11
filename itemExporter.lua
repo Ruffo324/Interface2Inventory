@@ -1,5 +1,5 @@
 -- Resolve relative path for "Console".
-local ConsoleLibaryPath = "I2I/Console"
+local ConsoleLibaryPath = "/Utils/Console"
 -- "Console.lua" not found -> error.
 if (not fs.exists(ConsoleLibaryPath)) then
   error("[FATAL ERROR] Can't find libary \"" .. ConsoleLibaryPath .. "\".")
@@ -9,7 +9,7 @@ if(not os.loadAPI(ConsoleLibaryPath)) then
   error("[FATAL ERROR] Can't load libary \"" .. ConsoleLibaryPath .. "\".")
 end
 
--- Configuration variables, overwritten by "./I2Iconfig".
+-- Configuration variables, overwritten by "./config".
 -- This are the default values for new config files.
 -- IMPORTANT: 
 local interfaceSide             = "back"  -- The name or side of the ME Interface.
@@ -103,15 +103,15 @@ function drawFetchingItemsToMonitor()
   end
 end
 
---- Gets the settings from the "I2I.cfg" file.
+--- Gets the settings from the "Interface2Inventory.cfg" file.
 --- If there is no settings file, it creates one.
 function GetOrCreateSettingsFile()
-  local settingsFilePath = shell.resolve("./I2Iconfig")
+  local settingsFilePath = shell.resolve("./config")
 
   -- There is no settings file? -> create one.
   if (not fs.exists(settingsFilePath)) then
-    Console.WriteLine(Console.Type.Warn, "There is not \"./I2Iconfig\" file.")
-    Console.WriteLine(Console.Type.Hint, "Creating new \"./I2Iconfig\"")
+    Console.WriteLine(Console.Type.Warn, "There is nor \"./config\" file.")
+    Console.WriteLine(Console.Type.Hint, "Creating new \"./config\"")
     Console.WriteLine(Console.Type.Hint, "with default settings..")
 
     WriteDefaultSettings(settingsFilePath)          
@@ -119,15 +119,15 @@ function GetOrCreateSettingsFile()
   end    
 
   -- Load settings file
-  Console.WriteLine(Console.Type.Init, "Loading config \"./I2Iconfig\".")
+  Console.WriteLine(Console.Type.Init, "Loading config \"./config\".")
   os.loadAPI(settingsFilePath)
-  interfaceSide = I2Iconfig.interfaceSide
-  exportDirection = I2Iconfig.exportDirection
-  tickInterval = I2Iconfig.tickInterval
-  itemsConfigurationFile = I2Iconfig.itemsConfigurationFile
-  monitorFetchingItems = I2Iconfig.monitorFetchingItems
-  if (I2Iconfig.monitorOutput ~= nil) then  
-    monitorOutput = I2Iconfig.monitorOutput
+  interfaceSide = config.interfaceSide
+  exportDirection = config.exportDirection
+  tickInterval = config.tickInterval
+  itemsConfigurationFile = config.itemsConfigurationFile
+  monitorFetchingItems = config.monitorFetchingItems
+  if (config.monitorOutput ~= nil) then  
+    monitorOutput = config.monitorOutput
   end
 
   -- Check if output is on the computer

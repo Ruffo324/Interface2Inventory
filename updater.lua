@@ -1,18 +1,18 @@
--- Script for updateing the full I2I source.
--- Not in I2I directory -> error.
-if(shell.resolve("./") ~= "I2I") then
-  error("Only the subfolder \"I2I\" is allowed for I2I.")
+-- Script for updateing the full "Interface2Inventory" source.
+-- Not in "Interface2Inventory" directory -> error.
+if(shell.resolve("./") ~= "Interface2Inventory") then
+  error("Only the subfolder \"Interface2Inventory\" is allowed for Interface2Inventory.")
 end
 
 -- Delete old files.
 term.setTextColor(colors.green)
 print("Deleting files..")
 term.setTextColor(colors.white)
-shell.run("delete", "/I2I/Console")
-shell.run("delete", "/I2I/Utils")
-shell.run("delete", "/I2I/makelist")
-shell.run("delete", "/I2I/itemExporter")
-shell.run("delete", "/I2I/updater")
+shell.run("delete", "/Utils/Console")
+shell.run("delete", "/Utils/Utils")
+shell.run("delete", "/Interface2Inventory/makelist")
+shell.run("delete", "/Interface2Inventory/itemExporter")
+shell.run("delete", "/Interface2Inventory/updater")
 
 -- Runn installer to get all new files.
 shell.run("installer")
