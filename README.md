@@ -39,76 +39,18 @@ That's all.
 
 
 # How to use
-### Script "makelist"
+## Script "makelist"
 To quickly and easily create a configuration file for I2I, there is the **"makelist"** command.
 ```shell
-
 makelist [side]
 ```
 
-### Script "itemExporter"
+## Script "itemExporter"
 ```shell
 itemExporter
 ```
 
-
-*TODO: Write this comments down into readme file*
-```Lua
---================================================================================================--
---
---  Applied Energistics Item Exporter
-
---  Version 0.2a
---
---  Original Author : Zacherl
---  Modifications   : Miscellaniuz
---
---================================================================================================--
---
--- This program was designed to work with the mods and versions in the "FTB Infinity 1.10.1" pack.
--- It was edited to work with the ToTheCore Official Modpack.
---	
--- Features:
---  * Periodically exports items from an Applied Energistics ME Interface to an adjacent inventory
---  * Ability to preserve a certain amount of items in the system.
---
--- Table format (items.cfg):
--- {
-  --   {
-    --     fingerprint = {
-      --       id = "minecraft:gold_ore",
---       dmg = 0,
---       nbt_hash = "3288456351062a1d4b01b5774241a664"
---     },
---     name = "Gold Ore",
---     preserve = 1000,
---   },
--- }
---
--- The "dmg" and "nbt_hash" fields are optional. Just remove them to ignore damage values and
--- NBT data for the specified item.
---
---================================================================================================--
-```
-
-#### makelist head commentary.
-```lua
---================================================================================================--
---
---  Applied Energistics Item Exporter
---  Version 0.1
---
---  Original Author : Zacherl
---  Modifications   : 
---
---================================================================================================--
--- 
--- This program was designed to work with the mods and versions in the "FTB Infinity 1.10.1" pack.
---
---================================================================================================--
-
-```
+# Details
+## "items.cfg" table format
 
 
-# Todo
-Write readme file complete.
